@@ -1,0 +1,17 @@
+{
+  "name": "垂直容器",
+  "icon": "icon-rongqi",
+  "children": [],
+  "fields": {
+    "padding": {
+      "label": "上下间距",
+      "type": "number",
+      "value": 0
+    },
+    "direction": {
+      "label": "布局方向",
+      "type": "text",
+      "value": "column"
+    }
+  }
+}
