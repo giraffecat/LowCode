@@ -13,7 +13,7 @@
         class="title"
         :style="getTitleStyle()"
       >
-        {{ title }} - asdasd
+        {{ title }}
       </div>
     </div>
   </div>

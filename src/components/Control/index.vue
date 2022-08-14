@@ -9,7 +9,6 @@
   <div class="control">
     <!-- 物料列表 -->
     <div class="control-models">
-      物料列表
       <draggable
         v-model="$initializing"
         :options="{ group: { name: 'itxst', pull: 'clone' }, sort: false }"
@@ -31,7 +30,7 @@
     <!-- 页面面板 -->
     <div class="control-page">
       <div class="panel-select">
-        <el-select v-model="value" class="m-2" placeholder="Select" size="large">
+        <el-select v-model="value" class="m-2" placeholder="IPhone13" size="large">
           <el-option
             v-for="item in options"
             :key="item.value"
@@ -55,7 +54,6 @@
 
     <!-- 物料配置 -->
     <div class="control-config">
-      物料配置
       <template v-if="curComponent">
         <custom-schema-template
           :schema="curSchema"

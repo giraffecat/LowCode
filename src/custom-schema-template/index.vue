@@ -8,7 +8,7 @@
 <template>
   <ul>
     <li v-for="(s, key, index) in schema" :key="index">
-      <div>{{s}}-{{key}}-{{index}}</div>
+      <!-- <div>{{s}}-{{key}}-{{index}}</div> -->
       <component
         :key="index"
         :is="getComponents(s.type)"
