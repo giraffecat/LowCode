@@ -10,6 +10,10 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import Vant from 'vant';
+import 'vant/lib/index.css';
+
+
 // 全局样式
 import '@/scss/index.scss'
 
@@ -27,7 +31,7 @@ import '@/utils/registerSchema.js' // 注册左侧组件库
 import Element from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 Vue.use(Element);
-
+Vue.use(Vant);
 // lodash
 import _ from 'lodash'
 Vue.prototype._ = _

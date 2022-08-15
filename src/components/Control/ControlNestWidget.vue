@@ -14,7 +14,7 @@
     selector="selector"
     :animation="500"
     :sort="true"
-    :class="[isWidget ? nest : 'nest-area']"
+    :class="[isWidget ? 'nest-child' : 'nest-area']"
   > 
     <!-- <div>filed - {{widgets}}</div> -->
     <widget-shape v-for="item in list" :key="item.id" :widget="item">
@@ -49,18 +49,6 @@ export default {
     widgets: {
       type: Array,
       default: () => [],
-    },
-  },
-  computed: {
-    nest() {
-      // console.log("change")
-      if(this.isWidget && this.direction == "column") {
-        // console.log("column")
-        return 'nest-child'
-      } else {
-        // console.log("column")
-        return 'nest-child'
-      }
     },
   },
   methods:{
@@ -98,14 +86,6 @@ export default {
   // display:flex;
   // flex-direction: row;
   background: #f7f8fa80;
-}
-.row {
-  display: flex;
-  flex-direction: row;
-}
-.column {
-  display: flex;
-  flex-direction: column;
 }
 
 .nest-area {
