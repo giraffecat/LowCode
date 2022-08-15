@@ -21,9 +21,14 @@
           class="iconfont icon-shanchu tab-icon f16"
           @click.stop="delComponent(chontrol.widgets, widget.id)"
         ></i>
+
+        <i
+          class="iconfont icon-fuzhiyemian tab-icon f16"
+          @click.stop="copyComponent(chontrol.widgets, widget.id)"
+        ></i>
       </template>
 
-      <span v-else>{{ widget.name }}</span>
+      <!-- <span v-else>{{ widget.name }}</span> -->
     </div>
 
     <slot></slot>
@@ -73,6 +78,7 @@ export default {
 
     // 删除物料
     delComponent(list, id) {
+      // console.log('删除');
       // 遍历查找目标下标
       let index = list.reduce((pre, cur, i) => {
         return cur.id == id ? i : pre;
@@ -81,8 +87,8 @@ export default {
       // 找到目标，删除无名
       if (index >= 0) {
         list.splice(index, 1);
-        console.log("删除成功");
-        console.log(list);
+        // console.log("删除成功");
+        // console.log(list);
       } else {
         // 递归子物料
         list
@@ -92,6 +98,38 @@ export default {
           });
       }
     },
+
+    // 赋值物料
+    copyComponent(list,id){
+      // console.log('复制')
+      // 遍历查找目标
+      let resArray = [-1,[]]
+      list.forEach((item,index)=>{
+        if(item.id === id){
+          resArray[0] = index
+          resArray[1] = this._.cloneDeep(item)
+        }
+      })
+      
+      
+      // 找到目标，复制物料
+      if (resArray[0] >= 0) {
+        resArray[1].id = this.$getRandomCode(8)
+        // console.log('1111', resArray[1].id)
+        list.splice(resArray[0], 0, resArray[1]);
+        // console.log("复制成功");
+        
+      } else {
+        // 递归子物料
+        list
+          .filter((c) => c.children)
+          .forEach((c) => {
+            this.copyComponent(c.children, id);
+          });
+      }
+      // console.log(list.forEach(item=>console.log(item,item.id)));
+    }
+    
   },
 };
 </script>
@@ -129,10 +167,10 @@ export default {
     position: absolute;
     top: 0; /*no*/
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 80px; /*no*/
-    height: 24px; /*no*/
     font-size: 12px; /*no*/
     color: #333;
     background: #ffffff;
@@ -152,6 +190,9 @@ export default {
       border-right-width: 5px; /*no*/
       border-right-color: currentColor;
       color: #fff;
+    }
+    .iconfont{
+      padding: 0.2rem 0;
     }
   }
 

@@ -19,7 +19,7 @@ function registerComponentsSchema () {
   files.keys().forEach(key => {
     const [, name] = key.split('/')
     let config = { component: name, ...files(key) }
-    console.log(config)
+    // console.log(config)
 
     fields[name] = config.fields
     initializing.push(initDefaulValue(config))

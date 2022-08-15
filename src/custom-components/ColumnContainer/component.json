@@ -4,14 +4,63 @@
   "children": [],
   "fields": {
     "padding": {
-      "label": "上下间距",
-      "type": "number",
-      "value": 0
+      "label": "边距",
+      "type": "object",
+      "child": {
+        "y": {
+          "label": "上下边距",
+          "type": "number",
+          "value": 10
+        },
+        "x": {
+          "label": "左右边距",
+          "type": "number",
+          "value": 10
+        }
+      }
     },
-    "direction": {
-      "label": "布局方向",
-      "type": "text",
-      "value": "column"
+    "boxShadow":{
+      "label": "阴影",
+      "type": "switch",
+      "value": true
+    },
+
+    "alignItems": {
+      "label": "水平方向",
+      "type": "select",
+      "value": "center",
+      "data": [
+        {
+          "id": "alignitems1",
+          "label": "起点对齐",
+          "value": "flex-start"
+        },
+        {
+          "id": "alignitems2",
+          "label": "终点对齐",
+          "value": "flex-end"
+        },
+        {
+          "id": "alignitems3",
+          "label": "垂直居中",
+          "value": "center"
+        },
+        {
+          "id": "alignitems4",
+          "label": "基线对齐",
+          "value": "baseline"
+        }
+      ]
+    },
+    "background": {
+      "label": "背景颜色",
+      "type": "color",
+      "value": "#fff"
+    },
+    "gap": {
+      "label": "纵向间隔",
+      "type": "number",
+      "value": 20
     }
   }
 }

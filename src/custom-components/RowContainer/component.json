@@ -4,14 +4,94 @@
   "children": [],
   "fields": {
     "padding": {
-      "label": "上下间距",
-      "type": "number",
-      "value": 0
+      "label": "边距",
+      "type": "object",
+      "child": {
+        "y": {
+          "label": "上下边距",
+          "type": "number",
+          "value": 0
+        },
+        "x": {
+          "label": "左右边距",
+          "type": "number",
+          "value": 10
+        }
+      }
     },
-    "direction": {
-      "label": "布局方向",
-      "type": "text",
-      "value": "row"
+    "boxShadow":{
+      "label": "阴影",
+      "type": "switch",
+      "value": true
+    },
+    "justifyContent": {
+      "label": "水平方向",
+      "type": "select",
+      "value": "flex-start",
+      "data": [
+        {
+          "id": "1",
+          "label": "左对齐",
+          "value": "flex-start"
+        },
+        {
+          "id": "2",
+          "label": "右对齐",
+          "value": "flex-end"
+        },
+        {
+          "id": "3",
+          "label": "水平居中",
+          "value": "space-around"
+        },
+        {
+          "id": "4",
+          "label": "两端对齐",
+          "value": "space-between"
+        }
+      ]
+    },
+    "alignItems": {
+      "label": "垂直方向",
+      "type": "select",
+      "value": "center",
+      "data": [
+        {
+          "id": "alignitems1",
+          "label": "起点对齐",
+          "value": "flex-start"
+        },
+        {
+          "id": "alignitems2",
+          "label": "终点对齐",
+          "value": "flex-end"
+        },
+        {
+          "id": "alignitems3",
+          "label": "垂直居中",
+          "value": "center"
+        },
+        {
+          "id": "alignitems4",
+          "label": "基线对齐",
+          "value": "baseline"
+        },
+        {
+          "id": "alignitems5",
+          "label": "横向平分",
+          "value": "stretch"
+        }
+      ]
+    },
+    "background": {
+      "label": "背景颜色",
+      "type": "color",
+      "value": "#fff"
+    },
+    "gap": {
+      "label": "横向间隔",
+      "type": "number",
+      "value": 20
     }
   }
 }

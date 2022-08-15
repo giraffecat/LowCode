@@ -70,7 +70,7 @@ export default {
     },
     list: {
       handler (val) {
-        console.log('....change list')
+        // console.log('....change list')
         this.$emit('update:componentList', val)
       },
       immediate: true,

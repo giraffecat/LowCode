@@ -28,8 +28,8 @@ function register (context) {
     let a = ctrl.name
     let b = ctrl
 
-    console.log(a);
-    console.log(b);
+    // console.log(a);
+    // console.log(b);
 
     // 注册组件
     Vue.component(a, b)

@@ -19,11 +19,11 @@ export default {
     },
 
     created () {
-      console.log('created');  
+      // console.log('created');  
     },
 
     destroyed () {
-      console.log('destroyed');
+      // console.log('destroyed');
     },
 
     data() {

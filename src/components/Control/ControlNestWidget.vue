@@ -23,7 +23,7 @@
         <ControlNestWidget
           :widgets.sync="item.children"
           :isWidget="true"
-          :direction="item.direction"
+          
         ></ControlNestWidget>
       </component>
     </widget-shape>
@@ -42,10 +42,10 @@ export default {
       type: Boolean,
       default: false,
     },
-    direction: {
-      type: Boolean,
-      default: "column",
-    },
+    // style: {
+    //   type: Object,
+    //   default: () => {},
+    // },
     widgets: {
       type: Array,
       default: () => [],
@@ -53,15 +53,17 @@ export default {
   },
   computed: {
     nest() {
-      console.log("change")
+      // console.log("change")
       if(this.isWidget && this.direction == "column") {
-        console.log("column")
-        return 'nest-child column'
+        // console.log("column")
+        return 'nest-child'
       } else {
-        console.log("column")
-        return 'nest-child row'
+        // console.log("column")
+        return 'nest-child'
       }
-    }
+    },
+  },
+  methods:{
   },
 
   data() {
@@ -73,7 +75,7 @@ export default {
   watch: {
     widgets: {
       handler(val) {
-        console.log("widgets", val)
+        // console.log("widgets", val)
         this.list = val;
       },
       immediate: true,

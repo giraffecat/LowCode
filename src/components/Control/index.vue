@@ -8,10 +8,12 @@
 <template>
   <div class="control">
     <!-- 物料列表 -->
+    <!-- :options="{ group: { name: 'itxst', pull: 'clone' }, sort: false }" -->
     <div class="control-models">
       <draggable
         v-model="$initializing"
-        :options="{ group: { name: 'itxst', pull: 'clone' }, sort: false }"
+        :group="{ name: 'itxst', pull: 'clone' }"
+        :sort=false
         :clone="handleClone"
         animation="300"
       >
@@ -29,16 +31,7 @@
 
     <!-- 页面面板 -->
     <div class="control-page">
-      <div class="panel-select">
-        <el-select v-model="value" class="m-2" placeholder="IPhone13" size="large">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-      </div>
+      
       <div class="panel" :style="{width: `${ScreenWidth}px`, height: `${ScreenHeight}px`}">
         <div class="panel-content">
           <!-- 可根据实际需求选择是否需要物料组件 -->
@@ -70,7 +63,7 @@
 </template>
 
 <script>
-
+import eventBus from '@/utils/eventBus'
 export default {
   name: "Control",
 
@@ -84,31 +77,14 @@ export default {
     return {
       //屏幕尺寸
       value: [390, 844],
-      options : [
-        {
-          value: [390, 844],
-          label: 'iPhone 13',
-        },
-        {
-          value: [375, 812],
-          label: 'iPhone 13 mini',
-        },
-        {
-          value: [428, 926],
-          label: 'iPhone 13 Pro Max',
-        },
-        {
-          value: [744, 1133],
-          label: 'iPad Mini (6th gen)',
-        },
-        {
-          value: [1024, 1366],
-          label: 'iPad Pro (5th gen 12.9")',
-        },
-      ],
       widgets: [],
       curComponent: undefined
     };
+  },
+  mounted(){
+    eventBus.$on('panelSize', (data) => {
+          this.value = data
+    })
   },
 
   computed: {
@@ -116,19 +92,21 @@ export default {
       return this.$fields[this.curComponent.component];
     },
     ScreenWidth() {
-      console.log(this.value)
+      // console.log(this.value)
+      
       return this.value[0] + "";
     },
     ScreenHeight() {
       return this.value[1] + "";
+
     }
   },
 
   methods: {
     // 复制物料
     handleClone(model) {
-      console.log("deepClone")
-      console.log("widgets", this.widgets)
+      // console.log("deepClone")
+      // console.log("widgets", this.widgets)
       return {
         ...this._.cloneDeep(model),
         id: this.$getRandomCode(8),

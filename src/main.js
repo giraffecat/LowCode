@@ -21,8 +21,8 @@ import globalMethods from '@/utils/globalMethods'
 Vue.use(globalMethods)
 
 // 全局组件注册
-import '@/utils/globalRegister.js'
-import '@/utils/registerSchema.js'
+import '@/utils/globalRegister.js' // 注册组件名称
+import '@/utils/registerSchema.js' // 注册左侧组件库
 
 import Element from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
