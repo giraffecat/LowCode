@@ -46,8 +46,4 @@ export default {
   min-height: 80px;
   background: #f7f8fa80;
 }
-
-.nest-area {
-  //   min-height: 600px;
-}
 </style>
