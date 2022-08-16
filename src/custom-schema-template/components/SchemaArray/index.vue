@@ -15,7 +15,7 @@
 
         <!-- 非编译模式，根据schema子类遍历数组单项组件 -->
         <template v-else>
-          <div v-for="item in mValue" :key="item.id" class="nav-item">
+          <div v-for="(item,index) in mValue" :key="item.id" class="nav-item">
             <component
               v-for="(val, key, index) in schema.child"
               :key="index"
@@ -24,7 +24,7 @@
               v-bind="val"
             >
             </component>
-            <div class="nav-delete" @click="delItem">x</div>
+            <div class="nav-delete" @click="delItem(index)">x</div>
           </div>
         </template>
       </draggable>
@@ -73,10 +73,13 @@ export default {
 
       this.mValue.push({
         id: this.$getRandomCode(6),
+        value:this.$getRandomCode(6)+''
       });
     },
 
     delItem(i) {
+      console.log(i)
+      console.log(this.mValue)
       this.mValue.splice(i, 1);
     },
   },

@@ -1,0 +1,35 @@
+{
+  "name": "下拉选择",
+  "icon": "icon-sort",
+  "fields": {
+    "optionList": {
+      "label": "选择器选项",
+      "type": "array",
+      "child": {
+        "text": {
+          "label": "选项",
+          "type": "string",
+          "value": ""
+        }
+      },
+      "value":[
+      ]
+    },
+    "optionAttrs": {
+      "label": "选择器样式",
+      "type": "object",
+      "child": {
+        "selectedColor": {
+          "label": "选中颜色",
+          "type": "color",
+          "value": ""
+        },
+        "hoverColor": {
+          "label": "悬浮颜色",
+          "type": "color",
+          "value": ""
+        }
+      }
+    }
+  }
+}
