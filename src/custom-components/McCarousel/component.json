@@ -1,0 +1,72 @@
+{
+  "name": "轮播图",
+  "icon": "icon-lunbo",
+  "fields": {
+    "carouselImgList": {
+      "label": "轮播图列表",
+      "type": "array",
+      "child": {
+        "image": {
+          "label": "图片上传",
+          "type": "upload",
+          "value": "http://110.42.184.128:8090/img/1638500189438.png"
+        },
+        "jump": {
+          "label": "页面跳转",
+          "type": "jump",
+          "value": ""
+        }
+      },
+      "value":[
+        {
+          "id": "0001",
+          "label": "推荐酒店",
+          "image":"http://110.42.184.128:8090/img/1638500137694.png"
+        },
+        {
+          "id": "0002",
+          "label": "热销抢购",
+          "image":"http://110.42.184.128:8090/img/1638500155713.png"
+        },
+        {
+          "id": "0003",
+          "label": "促销门票",
+          "image":"http://110.42.184.128:8090/img/1638500173774.png"
+        }
+      ]
+    },
+    "attrs": {
+      "label": "轮播图设置",
+      "type": "object",
+      "child": {
+        "height": { 
+          "label": "图片高度",
+          "type": "number",
+          "value": 250,
+          "options": {
+            "min": 200,
+            "max": 300
+          }
+        },
+        "autoPlay": {
+          "label": "自动播放",
+          "type": "switch",
+          "value": true,
+          "options": {
+            "trueLabel": "开启",
+            "falseLabel": "关闭"
+          }
+        },
+        "switchInterval": { 
+          "label": "播放间隔",
+          "type": "number",
+          "value": 3,
+          "options": {
+            "min": 1,
+            "max": 30
+          }
+        }
+      }
+    }
+  }
+}

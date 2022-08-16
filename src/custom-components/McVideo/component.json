@@ -1,0 +1,29 @@
+{
+  "name": "视频",
+  "icon": "icon-image",
+  "fields": {
+    "attrs": {
+      "label": "视频参数",
+      "type": "object",
+      "child": {
+        "videoBorderRadius": {
+          "label": "视频圆角",
+          "type": "number",
+          "value": 0,
+          "options": {
+            "min": 0,
+            "max": 100
+          }
+        },
+        "videoLink": {
+          "label": "视频链接",
+          "type": "string",
+          "value": "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4",
+          "options": {
+            "placeholder": "请输入视频地址"
+          }
+        }
+      }
+    }
+  }
+}

@@ -60,5 +60,6 @@ export default {
     font-size: 14px;
     color: #969799;
   }
-}</style
->+
+}
+</style>
+
