@@ -9,23 +9,10 @@
   <div class="wrap" :style="$getStyle(styles)">
     <div class="wrap-body" :style="getWrapStyle()">
       <ul class="tabs" :style="getTabsStyle()">
-        <li
-          v-for="item in tabList"
-          :key="item.id"
-          class="tab-item"
-          :style="geItemStyle()"
-        >
-          <img
-            v-show="['image', 'image-text'].includes(attrs.type)"
-            class="tab-item-img"
-            :style="geItemImgStyle()"
-            :src="item.image || defaultIamge"
-          />
-          <span
-            v-show="['text', 'image-text'].includes(attrs.type)"
-            class="ellipsis-1"
-            >{{ item.label }}</span
-          >
+        <li v-for="item in tabList" :key="item.id" class="tab-item" :style="geItemStyle()">
+          <img v-show="['image', 'image-text'].includes(attrs.type)" class="tab-item-img" :style="geItemImgStyle()"
+            :src="item.image || defaultIamge" />
+          <span v-show="['text', 'image-text'].includes(attrs.type)" class="ellipsis-1">{{ item.label }}</span>
         </li>
       </ul>
     </div>
@@ -39,11 +26,11 @@ export default {
   props: {
     styles: {
       type: Object,
-      default: () => {}
+      default: () => { }
     },
     attrs: {
       type: Object,
-      default: () => {}
+      default: () => { }
     },
     tabList: {
       type: Array,
@@ -51,7 +38,7 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
       fixed: true,
       defaultIamge:
@@ -60,7 +47,7 @@ export default {
   },
 
   computed: {
-    itemWidth () {
+    itemWidth() {
       return (
         (375 - this.styles.pagePadding * 2 - this.styles.imgPadding) /
         this.attrs.max
@@ -70,7 +57,7 @@ export default {
 
   methods: {
     // 容器样式
-    getWrapStyle () {
+    getWrapStyle() {
       return {
         overflowX: this.attrs.model == 'fixed' ? 'hidden' : 'auto',
         ...this.$getStyle(this.styles)
@@ -78,7 +65,7 @@ export default {
     },
 
     // tabs 样式
-    getTabsStyle () {
+    getTabsStyle() {
       return {
         width: this.$pxTorem(
           this.itemWidth * this.tabList.length + this.styles.imgPadding
@@ -88,7 +75,7 @@ export default {
     },
 
     // 单项样式
-    geItemStyle () {
+    geItemStyle() {
       return {
         width: this.$pxTorem(this.itemWidth),
         padding: this.$pxTorem(this.styles.imgPadding / 2),
@@ -97,7 +84,7 @@ export default {
     },
 
     // 单项图片样式
-    geItemImgStyle () {
+    geItemImgStyle() {
       return {
         width: `${this.styles.imgWidth}%`,
         borderRadius: this.$pxTorem(this.styles.imgRadius),
@@ -112,7 +99,8 @@ export default {
 .wrap {
   .wrap-body {
     &::-webkit-scrollbar {
-      display: none; /* Chrome Safari */
+      display: none;
+      /* Chrome Safari */
     }
 
     .tabs {

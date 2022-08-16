@@ -34,6 +34,8 @@
       
       <div class="panel" :style="{width: `${ScreenWidth}px`, height: `${ScreenHeight}px`}">
         <div class="panel-content">
+          <div class="preview-head"></div>
+
           <!-- 可根据实际需求选择是否需要物料组件 -->
 
           <!-- 不可嵌套物料 -->
@@ -184,6 +186,12 @@ export default {
         margin: 50px auto;
         background: #fff;
         box-shadow: 0px 10px 24px rgba(0, 0, 0, 0.1);
+        .preview-head {
+          widows: 100%; /*no*/
+          height: 64px; /*no*/
+          background-image: url("./image/phone-head.png");
+          background-size: cover;
+        }
       }
     }
   }
