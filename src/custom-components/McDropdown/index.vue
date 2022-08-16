@@ -1,10 +1,18 @@
 
 <template>
-  <div>
+  <div class="outer">
     <el-select
       v-model="value1"
       placeholder="请选择"
       @click.native="selectclick"
+      :style="{
+        '--select-borderColor': optionAttrs.borderColor
+          ? optionAttrs.borderColor
+          : '#DCDFE6',
+          '--select-borderWidth': optionAttrs.borderWidth
+          ? optionAttrs.borderWidth+'px'
+          : '1px'
+      }"
     >
       <el-option
         v-for="item in optionList"
@@ -54,6 +62,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.outer{
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+/deep/ .el-input__inner{
+  border-width:var(--select-borderWidth);
+      border-color: var(--select-borderColor);
+  }
+/deep/.el-select .el-input.is-focus .el-input__inner,
+/deep/ .el-select .el-input__inner:focus{
+  border-color: var(--select-borderColor);
+}
 
 .el-select-dropdown__list {
 	.el-select-dropdown__item.selected {
