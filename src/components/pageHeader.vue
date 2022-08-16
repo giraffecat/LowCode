@@ -19,12 +19,17 @@
         </el-select>
       </div>
     </div>
+    <el-button size="small" @click="toPreview">预览</el-button>
     <el-button size="small" @click="toSchema">schema 生成器</el-button>
+
+    <!-- 预览 -->
+    <Preview v-if="isShowPreview" @change="handlePreviewChange"/>
   </div>
 </template>
 
 <script>
 import eventBus from "@/utils/eventBus";
+
 export default {
   name: "pageHeader",
   data() {
@@ -52,6 +57,7 @@ export default {
           label: 'iPad Pro (5th gen 12.9")',
         },
       ],
+      isShowPreview: false,
     };
   },
   methods: {
@@ -61,19 +67,24 @@ export default {
       });
       window.open(href);
     },
+    toPreview() {
+      this.isShowPreview  = true
+    },
     emitValue() {
       eventBus.$emit("panelSize", this.value);
+      this.$store.commit('setPenelSize',this.value)
       // console.log(this.value);
     },
+    handlePreviewChange(){
+      this.isShowPreview  = false
+    }
   },
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 .page-head {
-  position: fixed;
-  top: 0;
-  left: 0;
+
   display: flex;
   align-items: center;
   justify-content: space-between;

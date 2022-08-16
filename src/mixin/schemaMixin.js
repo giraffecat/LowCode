@@ -35,6 +35,7 @@ export default {
 
     computed: {
         mOptions() {
+            // console.log('打印结果',this.defaultOptions,this.options)
             return { ...this.defaultOptions, ...this.options }
         }
     },

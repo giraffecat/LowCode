@@ -113,6 +113,18 @@ export default {
       };
     },
   },
+  watch: {
+    widgets: {
+      handler(val) {
+        // console.log("widgets", val)
+        this.$store.commit('setWidgets',val)
+        
+        
+      },
+      immediate: true,
+      deep: true,
+    },
+  }
 };
 </script>
 

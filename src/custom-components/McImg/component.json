@@ -11,6 +11,14 @@
       "label": "图片圆角",
       "type": "number",
       "value": 0
+    },
+    "height": {
+      "label": "图片高度",
+      "type": "number",
+      "value": 100,
+      "options": {
+        "max": 1000
+      }
     }
   }
 }

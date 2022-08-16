@@ -10,7 +10,7 @@
     <img
       class="img"
       :src="imagePath || defaultImage"
-      :style="{ borderRadius: radius + 'px' }"
+      :style="{ borderRadius: radius + 'px', height: height + 'px'}"
     />
   </div>
 </template>
@@ -28,6 +28,10 @@ export default {
       type: Number,
       default: 0,
     },
+    height: {
+      type: Number,
+      default: 100,
+    },
   },
 
   data() {
@@ -41,6 +45,6 @@ export default {
 
 <style lang="scss" scoped>
 .img {
-  width: 100%;
+  object-fit: cover;
 }
 </style>

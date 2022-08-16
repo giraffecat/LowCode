@@ -64,6 +64,7 @@ export default {
       // console.log()
       const el = this.$refs.nestParent.childNodes[0]
       // el.style.justifyContent = "flex-end"
+      // console.log(el)
       Object.assign(el.style, this.getTitleStyle)
     }
   },
@@ -87,10 +88,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.cnt {
-  .nest-child {
+.nest-child {
     display: flex;
     flex-direction: row;
   }
-}
 </style>

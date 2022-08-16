@@ -23,7 +23,7 @@ export default {};
   .page-body {
     height: calc(100vh - 56px);
     width: 100%;
-    margin-top: 56px;
+    margin-top: 10px;
     overflow: auto;
   }
 }
