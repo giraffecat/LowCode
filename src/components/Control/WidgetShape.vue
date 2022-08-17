@@ -93,7 +93,7 @@ export default {
       // console.log('删除',id);
       // 判断是页面还是组件，具有widgets属性名的为页面
       // console.log(widget.hasOwnProperty('home'));
-      console.log(widget)
+      // console.log(widget)
       if (widget.hasOwnProperty("home")) {
         const index = pages.reduce((pre, cur, i) => {
           return cur.id == widget.id ? i : pre;
@@ -154,18 +154,30 @@ export default {
           }
         });
         if (resArray[0] >= 0) {
+          // page的id要变化
           resArray[1].id = this.$getRandomCode(8);
+          // page下的widges的id也要变化
+          resArray[1].widgets.forEach(widget=>{
+            widget.id = this.$getRandomCode(8)
+            // widget下可能有children
+              // console.log(widget)
+              if(widget.children) widget.children.forEach((c) => {
+                c.id = this.$getRandomCode(8)
+              });
+              
+          })
           resArray[1].home = false;
           resArray[1].name = resArray[1].name + "(1)";
           // console.log('1111', resArray[1].id)
           pages.splice(resArray[0]+1, 0, resArray[1]);
         }
       } else {
-        // 删除的是组件
+        // 复制的是组件
         for (let p of pages) {
           // pages因为递归可能是c.children，组件合集
           // p可能是组件，可能是页面
           const list = p.hasOwnProperty("home") ? p.widgets : pages;
+          // console.log(p,list,widget.id);
           let resArray = [-1, []];
           list.forEach((item, index) => {
             if (item.id === widget.id) {
@@ -173,9 +185,15 @@ export default {
               resArray[1] = this._.cloneDeep(item);
             }
           });
+          
           if (resArray[0] >= 0) {
             resArray[1].id = this.$getRandomCode(8);
-            // console.log('1111', resArray[1].id)
+            
+            // console.log(widget)
+              if( resArray[1].children) widget.children.forEach((c) => {
+                c.id = this.$getRandomCode(8)
+              });
+            // console.log('1111', resArray[1])
             list.splice(resArray[0]+1, 0, resArray[1]);
             return;
           } else {
@@ -183,7 +201,8 @@ export default {
             list
               .filter((c) => c.children)
               .forEach((c) => {
-                this.delComponent(c.children, widget);
+                console.log(c);
+                this.copyComponent(c.children, widget);
               });
           }
         }
