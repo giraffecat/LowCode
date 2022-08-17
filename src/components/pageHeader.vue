@@ -25,7 +25,7 @@
     <el-button size="small" @click="toSchema">schema 生成器</el-button>
 
     <!-- 预览 -->
-    <Preview v-if="isShowPreview" @change="handlePreviewChange"/>
+    <Preview v-if="isShowPreview" @change="handlePreviewChange" />
   </div>
 </template>
 
@@ -70,47 +70,46 @@ export default {
       window.open(href);
     },
     toPreview() {
-      this.isShowPreview  = true
+      this.isShowPreview = true;
     },
     emitValue() {
       eventBus.$emit("panelSize", this.value);
-      this.$store.commit('setPenelSize',this.value)
+      this.$store.commit("setPenelSize", this.value);
       // console.log(this.value);
     },
-    handlePreviewChange(){
-      this.isShowPreview  = false
+    handlePreviewChange() {
+      this.isShowPreview = false;
     },
-    deleteAll(){
-      eventBus.$emit('clearWidgets',[]);
+    deleteAll() {
+      eventBus.$emit("clearWidgets", []);
     },
     // 新增画布
-    addPage(){
-
-    }
-
-  },
-  mounted() {
-    const homePage = {
-        id: this.$getRandomCode(4),
-        name: "主页",
-        widgets: [],
-        home: true,
-      }
-      const page1 = {
+    addPage() {
+      const page = {
         id: this.$getRandomCode(4),
         name: "页面1",
         widgets: [],
         home: false,
-      }
-      this.$store.commit('addPage', homePage)
-      this.$store.commit('addPage', page1)
+      };
+      
+    this.$store.commit("addPage", page);
+    },
+  },
+  mounted() {
+    const homePage = {
+      id: this.$getRandomCode(4),
+      name: "主页",
+      widgets: [],
+      home: true,
+    };
+
+    this.$store.commit("addPage", homePage);
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .page-head {
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -120,5 +119,4 @@ export default {
   background: #fff;
   box-shadow: 0 4px 6px 0 rgba(12, 31, 80, 0.04);
 }
-
 </style>
