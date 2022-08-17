@@ -92,24 +92,17 @@ export default {
       console.log("clearWidgets")
       this.widgets = []
     })
-    eventBus.$on('savePanel', (data) => {
-      this.$store.commit(data,this.widgets);
-    })
+    // eventBus.$on('savePanel', (data) => {
+    //   this.$store.commit(data,this.widgets);
+    // })
     eventBus.$on('deletePage', (deletePage) => {
-      // this.$store.commit("newPage",[]);
-      // this.widgets = [];
-      // console.log("this.widges", this.widgets)
       this.$store.commit("deletePage", deletePage);
     })
     eventBus.$on('pageChange', ([curPage, prePage]) => {
-      //这一段逻辑有问题
       this.$store.commit('updateWidgets',[prePage, this.widgets]);
       this.widgets = this.$store.state.pages[curPage]
-      console.log("curPage", curPage, prePage, this.widgets.length)
-
     }),
     eventBus.$on('updatePanel', ([curPage]) => {
-      console.log("updatePanel")
       this.$store.commit('updateWidgets',[curPage,this.widgets]);
     })
   },
