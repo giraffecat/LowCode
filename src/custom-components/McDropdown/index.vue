@@ -1,6 +1,9 @@
 
 <template>
-  <div class="outer">
+  <div class="outer"  :style="{
+        '--paddingLeft': optionAttrs.paddingLeft+'%',
+          '--paddingRight': optionAttrs.paddingRight+'%',
+      }">
     <el-select
       v-model="value1"
       placeholder="请选择"
@@ -63,8 +66,8 @@ export default {
 
 <style lang="scss" scoped>
 .outer{
-  padding-left: 5%;
-  padding-right: 5%;
+  padding-left: var(--paddingLeft);
+  padding-right: var(--paddingRight);
 }
 
 /deep/ .el-input__inner{

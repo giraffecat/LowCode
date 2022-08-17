@@ -18,11 +18,7 @@
       "label": "选择器样式",
       "type": "object",
       "child": {
-        "borderColor": {
-          "label": "边框颜色",
-          "type": "color",
-          "value": ""
-        },
+        
         "borderWidth": {
           "label": "边框宽度",
           "type":"number",
@@ -31,6 +27,29 @@
             "min": 1,
             "max": 10
           }
+        },
+        "paddingLeft": {
+          "label": "左侧间距",
+          "type":"number",
+          "value": 10,
+          "options": {
+            "min": 0,
+            "max": 40
+          }
+        },
+        "paddingRight": {
+          "label": "右侧间距",
+          "type":"number",
+          "value": 10,
+          "options": {
+            "min": 0,
+            "max": 40
+          }
+        },
+        "borderColor": {
+          "label": "边框颜色",
+          "type": "color",
+          "value": ""
         },
         "selectedColor": {
           "label": "选中颜色",
