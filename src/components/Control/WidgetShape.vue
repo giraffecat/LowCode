@@ -181,7 +181,7 @@ export default {
     color: #333;
     background: #ffffff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index:999;
+    z-index:100;
     &::after {
       content: "";
       position: absolute;

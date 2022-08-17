@@ -2,6 +2,7 @@
     <div class="preview-page">
         <el-button class="close" @click="close">关闭</el-button>
         <div class="panel-container">
+
             <div
                 class="panel"
                 :style="{
@@ -9,6 +10,8 @@
                     height: panelSize[1] + 'px',
                 }"
             >
+                        <div class="panel-header"></div>
+
                 <ComponentWrapper
                     :widgets="widgets"
                 />
@@ -65,10 +68,17 @@ export default {
     padding: 20px;
 
     .panel-container {
+        display: flex;
+        justify-content: center;
         width: calc(100% - 40px);
         height: calc(100% - 120px);
         overflow: auto;
-
+        .panel-header {
+          widows: 100%; /*no*/
+          height: 64px; /*no*/
+          background-image: url("./image/phone-head.png");
+          background-size: cover;
+        }
         .panel {
             background: #fff;
             // position: relative;

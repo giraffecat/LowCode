@@ -32,9 +32,9 @@
     <!-- 页面面板 -->
     <div class="control-page">
       
-      <div class="panel" :style="{width: `${ScreenWidth}px`, height: `${ScreenHeight}px`}">
-        <div class="panel-content">
-          <div class="preview-head"></div>
+      <div class="panel">
+        <div class="panel-content" :style="{width: `${ScreenWidth}px`, height: `${ScreenHeight}px`}">
+          <div class="panel-header"></div>
 
           <!-- 可根据实际需求选择是否需要物料组件 -->
 
@@ -43,6 +43,7 @@
 
           <!-- 递归可嵌套物料 -->
           <control-nest-widget :widgets.sync="widgets" />
+           <!-- <div class="panel-footer"></div> -->
         </div>
       </div>
     </div>
@@ -78,7 +79,7 @@ export default {
   data() {
     return {
       //屏幕尺寸
-      value: [390, 844],
+      value: [375, 667],
       widgets: [],
       curComponent: undefined
     };
@@ -173,25 +174,22 @@ export default {
     flex: 1;
     height: 100%;
     overflow: auto;
-    .panel-select {
-      position: relative;
-      top: 50px;
-      right: 30px;
-    }
 
     .panel {
-      // max-width: 900px;
 
       .panel-content {
         margin: 50px auto;
         background: #fff;
         box-shadow: 0px 10px 24px rgba(0, 0, 0, 0.1);
-        .preview-head {
+        .panel-header {
           widows: 100%; /*no*/
           height: 64px; /*no*/
           background-image: url("./image/phone-head.png");
           background-size: cover;
         }
+        // .panel-footer{
+        //   height: 100px;
+        // }
       }
     }
   }
