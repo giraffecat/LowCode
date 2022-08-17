@@ -28,11 +28,11 @@ export default {
   props: {
     buttonTitle: {
       type: String,
-      default: ()=>{},
+      default: '',
     },
     buttonModel :{
-      type: Array,
-      default: ()=>{},
+      type: String,
+      default: '',
     },
     buttonFree:{
       type:Number,

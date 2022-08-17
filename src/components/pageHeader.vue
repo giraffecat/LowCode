@@ -2,6 +2,7 @@
   <div class="page-head">
     <span>字节青训营Low-Code</span>
     <el-button size="small" @click="deleteAll">清空画布</el-button>
+    <el-button size="small" @click="addPage">新增画布</el-button>
     <div class="page-menu">
       <div class="panel-size-select">
         <el-select
@@ -82,7 +83,27 @@ export default {
     deleteAll(){
       eventBus.$emit('clearWidgets',[]);
     },
+    // 新增画布
+    addPage(){
 
+    }
+
+  },
+  mounted() {
+    const homePage = {
+        id: this.$getRandomCode(4),
+        name: "主页",
+        widgets: [],
+        home: true,
+      }
+      const page1 = {
+        id: this.$getRandomCode(4),
+        name: "页面1",
+        widgets: [],
+        home: false,
+      }
+      this.$store.commit('addPage', homePage)
+      this.$store.commit('addPage', page1)
   },
 };
 </script>

@@ -13,7 +13,7 @@
       <draggable
         v-model="$initializing"
         :group="{ name: 'itxst', pull: 'clone' }"
-        :sort=false
+        :sort="false"
         :clone="handleClone"
         animation="300"
       >
@@ -31,20 +31,25 @@
 
     <!-- 页面面板 -->
     <div class="control-page">
-      
       <div class="panel">
-        <div class="panel-content" :style="{width: `${ScreenWidth}px`, height: `${ScreenHeight}px`}">
+        <!-- <div
+          class="panel-content"
+          :style="{ width: `${ScreenWidth}px`, height: `${ScreenHeight}px` }"
+        > -->
+        <widget-shape
+            class="panel-content"
+            :style="{ width: `${ScreenWidth}px`, height: `${ScreenHeight}px` }"
+            v-for="page in pages"
+            :key="page.id"
+            :widget="page"
+          >
           <div class="panel-header"></div>
 
-          <!-- 可根据实际需求选择是否需要物料组件 -->
-
-          <!-- 不可嵌套物料 -->
-          <!-- <control-widget :widgets.sync="widgets" /> -->
-
           <!-- 递归可嵌套物料 -->
-          <control-nest-widget :widgets.sync="widgets" />
-           <!-- <div class="panel-footer"></div> -->
-        </div>
+          <control-nest-widget :widgets.sync="page.widgets"/>
+          <!-- <div class="panel-footer"></div> -->
+        <!-- </div> -->
+        </widget-shape>
       </div>
     </div>
 
@@ -66,7 +71,8 @@
 </template>
 
 <script>
-import eventBus from '@/utils/eventBus'
+import eventBus from "@/utils/eventBus";
+import { mapState } from "vuex";
 export default {
   name: "Control",
 
@@ -80,32 +86,30 @@ export default {
     return {
       //屏幕尺寸
       value: [375, 667],
-      widgets: [],
-      curComponent: undefined
+      // widgets: [],
+      curComponent: undefined,
     };
   },
-  mounted(){
-    eventBus.$on('panelSize', (data) => {
-          this.value = data
-    })
-    eventBus.$on('clearWidgets', (data) => {
-          this.widgets = data
-    })
+  mounted() {
+    eventBus.$on("panelSize", (data) => {
+      this.value = data;
+    });
+    eventBus.$on("clearWidgets", (data) => {
+      this.widgets = data;
+    });
   },
-
   computed: {
     curSchema() {
       return this.$fields[this.curComponent.component];
     },
     ScreenWidth() {
       // console.log(this.value)
-      
       return this.value[0] + "";
     },
     ScreenHeight() {
       return this.value[1] + "";
-
-    }
+    },
+    ...mapState(["pages"]),
   },
 
   methods: {
@@ -120,16 +124,25 @@ export default {
     },
   },
   watch: {
-    widgets: {
+    pages: {
       handler(val) {
-        // console.log("widgets", val)
-        this.$store.commit('setWidgets',val)
-        
+        // 当前的widgets
+        // this.widgets = 
+        // console.log("pages", val)
+        this.$store.commit("setPages", val);
+        // // 更新仓库里的pages数据
+        // const page = {
+        //   id: this.$getRandomCode(4),
+        //   name: "主页",
+        //   widgets: [val],
+        //   home: true,
+        // };
+        // this.$store.commit('setPages', page)
       },
       immediate: true,
       deep: true,
     },
-  }
+  },
 };
 </script>
 
@@ -178,9 +191,8 @@ export default {
     overflow: auto;
 
     .panel {
-
       .panel-content {
-        margin: 50px auto;
+        margin: 10px auto;
         background: #fff;
         box-shadow: 0px 10px 24px rgba(0, 0, 0, 0.1);
         .panel-header {
