@@ -1,6 +1,7 @@
 <template>
   <div class="page-head">
     <span>字节青训营Low-Code</span>
+    <el-button size="small" @click="deleteAll">清空画布</el-button>
     <div class="page-menu">
       <div class="panel-size-select">
         <el-select
@@ -77,7 +78,11 @@ export default {
     },
     handlePreviewChange(){
       this.isShowPreview  = false
-    }
+    },
+    deleteAll(){
+      eventBus.$emit('clearWidgets',[]);
+    },
+
   },
 };
 </script>
@@ -94,4 +99,5 @@ export default {
   background: #fff;
   box-shadow: 0 4px 6px 0 rgba(12, 31, 80, 0.04);
 }
+
 </style>

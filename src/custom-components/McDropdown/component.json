@@ -1,5 +1,5 @@
 {
-  "name": "下拉选择",
+  "name": "选择器",
   "icon": "icon-sort",
   "fields": {
     "optionList": {

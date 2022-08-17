@@ -87,6 +87,9 @@ export default {
     eventBus.$on('panelSize', (data) => {
           this.value = data
     })
+    eventBus.$on('clearWidgets', (data) => {
+          this.widgets = data
+    })
   },
 
   computed: {
@@ -120,7 +123,6 @@ export default {
       handler(val) {
         // console.log("widgets", val)
         this.$store.commit('setWidgets',val)
-        
         
       },
       immediate: true,
