@@ -91,6 +91,15 @@ export default {
     eventBus.$on('clearWidgets', (data) => {
           this.widgets = data
     })
+    eventBus.$on('savePanel', (data) => {
+      this.$store.commit(data,this.widgets);
+    })
+    eventBus.$on('pageChange', (data) => {
+          this.widgets = this.$store.state.pages[data].widgets
+    }),
+    eventBus.$on('updatePanel', (data) => {
+          this.$store.commit('updateWidgets',[data,this.widgets]);
+    })
   },
 
   computed: {

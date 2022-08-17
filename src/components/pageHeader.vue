@@ -2,6 +2,27 @@
   <div class="page-head">
     <span>字节青训营Low-Code</span>
     <el-button size="small" @click="deleteAll">清空画布</el-button>
+    <el-button size="small" @click="savePanel">保存画布</el-button>
+    <el-button size="small" @click="newPanel">新建画布</el-button>
+    <el-button size="small" @click="deletePage">删除画布</el-button>
+
+    <div class="page-option">
+      <el-select
+        v-model="value1"
+        placeholder=""
+        @click.native="changeOptions"
+        @change="pageChange"
+      >
+        <el-option
+          v-for="item in pageOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        >
+        </el-option>
+      </el-select>
+    </div>
+
     <div class="page-menu">
       <div class="panel-size-select">
         <el-select
@@ -30,12 +51,15 @@
 
 <script>
 import eventBus from "@/utils/eventBus";
-
 export default {
   name: "pageHeader",
   data() {
     return {
       value: [375, 667],
+
+      value1: null,
+      pageOptions: [],
+
       options: [
         {
           value: [375, 667],
@@ -61,6 +85,7 @@ export default {
       isShowPreview: false,
     };
   },
+
   methods: {
     toSchema() {
       let { href } = this.$router.resolve({
@@ -69,27 +94,66 @@ export default {
       window.open(href);
     },
     toPreview() {
-      this.isShowPreview  = true
+      this.isShowPreview = true;
     },
     emitValue() {
       eventBus.$emit("panelSize", this.value);
-      this.$store.commit('setPenelSize',this.value)
+      this.$store.commit("setPenelSize", this.value);
       // console.log(this.value);
     },
-    handlePreviewChange(){
-      this.isShowPreview  = false
+    handlePreviewChange() {
+      this.isShowPreview = false;
     },
-    deleteAll(){
-      eventBus.$emit('clearWidgets',[]);
+    deleteAll() {
+      eventBus.$emit("clearWidgets", []);
     },
-
+    newPanel() {
+      this.value1 = null;
+      eventBus.$emit("clearWidgets", []);
+    },
+    savePanel() {
+      if (this.value1 == null) {
+        eventBus.$emit("savePanel", "saveWidgets");
+        this.changeOptions();
+        this.value1 = this.pageOptions[this.pageOptions.length - 1].value;
+      } else {
+        eventBus.$emit("updatePanel", this.value1);
+      }
+    },
+    deletePage() {
+      if (this.value1 != null) {
+        this.$store.commit("deletePage", this.value1);
+        this.newPanel();
+      }
+    },
+    changeOptions() {
+      const pages = this.$store.state.pages;
+      if (pages.length > 0) {
+        this.pageOptions = [];
+        for (let i in pages) {
+          this.pageOptions[i] = { value: pages[i].value, label: `页面${i}` };
+        }
+      } else {
+        this.pageOptions = [];
+      }
+    },
+    pageChange() {
+      let data;
+      for (let i in this.pageOptions) {
+        if (this.pageOptions[i].value == this.value1) {
+          data = i;
+          break;
+        }
+      }
+      //value和索引值不同，这里要传的是索引
+      eventBus.$emit("pageChange", data);
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .page-head {
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -99,5 +163,4 @@ export default {
   background: #fff;
   box-shadow: 0 4px 6px 0 rgba(12, 31, 80, 0.04);
 }
-
 </style>
