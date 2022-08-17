@@ -2,16 +2,15 @@
   <div class="page-head">
     <span>字节青训营Low-Code</span>
     <el-button size="small" @click="deleteAll">清空画布</el-button>
-    <el-button size="small" @click="savePanel">保存画布</el-button>
-    <el-button size="small" @click="newPanel">新建画布</el-button>
+    <!-- <el-button size="small" @click="savePanel">保存画布</el-button> -->
+    <el-button size="small" @click="newPage">新建画布</el-button>
     <el-button size="small" @click="deletePage">删除画布</el-button>
 
     <div class="page-option">
       <el-select
-        v-model="value1"
+        v-model="curPage"
         placeholder=""
         @click.native="changeOptions"
-        @change="pageChange"
       >
         <el-option
           v-for="item in pageOptions"
@@ -51,13 +50,14 @@
 
 <script>
 import eventBus from "@/utils/eventBus";
+import { rejects } from "assert";
 export default {
   name: "pageHeader",
   data() {
     return {
       value: [375, 667],
 
-      value1: null,
+      curPage: null,
       pageOptions: [],
 
       options: [
@@ -85,7 +85,15 @@ export default {
       isShowPreview: false,
     };
   },
-
+  watch: {
+    curPage(cur, pre) {
+      //删除会触发
+      eventBus.$emit("pageChange", [cur, pre]);
+    },
+  },
+  mounted() {
+    this.newPage()
+  },
   methods: {
     toSchema() {
       let { href } = this.$router.resolve({
@@ -99,7 +107,6 @@ export default {
     emitValue() {
       eventBus.$emit("panelSize", this.value);
       this.$store.commit("setPenelSize", this.value);
-      // console.log(this.value);
     },
     handlePreviewChange() {
       this.isShowPreview = false;
@@ -107,26 +114,44 @@ export default {
     deleteAll() {
       eventBus.$emit("clearWidgets", []);
     },
-    newPanel() {
-      this.value1 = null;
-      eventBus.$emit("clearWidgets", []);
+    newPage() {
+      this.$store.commit("newPage",[]);
+      this.changeOptions()
+      this.curPage =  this.pageOptions[this.pageOptions.length - 1].value;
+      this.$notify({
+          title: '成功',
+          message: '创建成功！',
+          type: 'success'
+        });
     },
     savePanel() {
-      if (this.value1 == null) {
-        eventBus.$emit("savePanel", "saveWidgets");
-        this.changeOptions();
-         this.value1 =this.pageOptions[this.pageOptions.length - 1].value
-        // this.value1 = this.pageOptions.length - 1;
-      } else {
-        eventBus.$emit("updatePanel", this.value1);
-      }
+      //保存
     },
     deletePage() {
-      if (this.value1 != null) {
-        this.$store.commit("deletePage", this.value1);
-        this.newPanel();
-      }
+      //删除当前页面 => 先跳转回第上一个页面 => 再删除当前页面
+      let deletePage =  this.curPage;
+      //先触发页面跳转
+      new Promise((resolve, reject) => {
+        if(this.curPage == 0 && this.$store.state.pages.length == 1) {
+          reject();
+        }
+        this.curPage = this.pageOptions[this.curPage - 1].value;
+        resolve();
+      }).then(() => {
+        eventBus.$emit("deletePage", deletePage);
+        this.$notify({
+          title: '成功',
+          message: '成功删除画布',
+          type: 'success'
+        });
+      }).catch(() => {
+        this.$notify.error({
+          title: '失败',
+          message: '不可删除画布',
+        });
+      })
     },
+
     changeOptions() {
       const pages = this.$store.state.pages;
       if (pages.length > 0) {
@@ -137,9 +162,6 @@ export default {
       } else {
         this.pageOptions = [];
       }
-    },
-    pageChange() {
-      eventBus.$emit("pageChange", this.value1);
     },
   },
 };

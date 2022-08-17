@@ -8,11 +8,15 @@ export default new Vuex.Store({
     panelSize: [390, 844], // 画布大小
     widgets: [], // 画布组件
     pages:[],
+    curPage:0,
   },
   mutations: {
     setWidgets(state, widgets = []) {
       // state.widgets = widgets;
       Vue.set(state, 'widgets', widgets)
+    },
+    setPage(state, page) {
+      state.curPage = page;
     },
     setPenelSize(state, panelSize = [390, 844]) {
       state.panelSize = panelSize;
@@ -20,11 +24,14 @@ export default new Vuex.Store({
     saveWidgets(state,widgets){
       state.pages.push(widgets)
     },
-    updateWidgets(state,[value,widgets]){
-          state.pages[value]=widgets;
-      },
-    deletePage(state,data){
-          state.pages.splice(data,1);
+    newPage(state, widgets){
+      state.pages.push([]);
+    },
+    updateWidgets(state,[updatePage, widgets]){
+      state.pages[updatePage] = widgets;
+    },
+    deletePage(state, deletePage){
+      state.pages.splice(deletePage, 1);
     }
   },
   actions: {},
