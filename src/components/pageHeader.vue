@@ -35,11 +35,11 @@ export default {
   name: "pageHeader",
   data() {
     return {
-      value: [390, 844],
+      value: [375, 667],
       options: [
         {
-          value: [390, 844],
-          label: "iPhone 13",
+          value: [375, 667],
+          label: "iPhone 8",
         },
         {
           value: [375, 812],
