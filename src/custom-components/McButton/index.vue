@@ -31,7 +31,7 @@ export default {
       default: ()=>{},
     },
     buttonModel :{
-      type: Array,
+      type: String,
       default: ()=>{},
     },
     buttonFree:{

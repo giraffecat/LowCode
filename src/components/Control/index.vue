@@ -95,7 +95,7 @@ export default {
       this.$store.commit(data,this.widgets);
     })
     eventBus.$on('pageChange', (data) => {
-          this.widgets = this.$store.state.pages[data].widgets
+          this.widgets = this.$store.state.pages[data]
     }),
     eventBus.$on('updatePanel', (data) => {
           this.$store.commit('updateWidgets',[data,this.widgets]);

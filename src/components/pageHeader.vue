@@ -115,7 +115,8 @@ export default {
       if (this.value1 == null) {
         eventBus.$emit("savePanel", "saveWidgets");
         this.changeOptions();
-        this.value1 = this.pageOptions[this.pageOptions.length - 1].value;
+         this.value1 =this.pageOptions[this.pageOptions.length - 1].value
+        // this.value1 = this.pageOptions.length - 1;
       } else {
         eventBus.$emit("updatePanel", this.value1);
       }
@@ -131,22 +132,14 @@ export default {
       if (pages.length > 0) {
         this.pageOptions = [];
         for (let i in pages) {
-          this.pageOptions[i] = { value: pages[i].value, label: `页面${i}` };
+          this.pageOptions[i] = { value: i, label: `页面${i}` };
         }
       } else {
         this.pageOptions = [];
       }
     },
     pageChange() {
-      let data;
-      for (let i in this.pageOptions) {
-        if (this.pageOptions[i].value == this.value1) {
-          data = i;
-          break;
-        }
-      }
-      //value和索引值不同，这里要传的是索引
-      eventBus.$emit("pageChange", data);
+      eventBus.$emit("pageChange", this.value1);
     },
   },
 };

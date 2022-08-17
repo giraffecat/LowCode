@@ -51,7 +51,7 @@ export default {
 
   mounted() {
     this.show = false;
-    console.log(this.widget)
+    // console.log(this.widget)
     eventBus.$on('selectClick', (id) => {
         this.show=true
         this.chontrol.curComponent = this.widget.id==id?this.widget:this.chontrol.curComponent;
