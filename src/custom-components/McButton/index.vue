@@ -7,7 +7,17 @@
 -->
 <template>
   <!-- <div class="title"> -->
-    <el-button>测试</el-button>
+    <el-button :style="{
+        '--bgcColor': buttonStyles.bgColor
+          ? buttonStyles.bgColor
+          : 'rgba(81, 151, 255, 1)',
+          '--titleColor': buttonStyles.titleColor
+          ? buttonStyles.titleColor
+          : 'rgba(242, 242, 242, 1)',
+          '--titleSize': buttonStyles.titleSize+'px',
+          '--buttonLeft':buttonModel=='free'?buttonFree+'%':(buttonModel=='middle'?'50%':'100%'),
+          '--trans':buttonModel=='middle'?'-50%':(buttonModel=='free'?'0%':'-100%'),
+           }" >{{buttonTitle}}</el-button>
   <!-- </div> -->
 </template>
 
@@ -16,45 +26,34 @@ export default {
   name: "McButton",
 
   props: {
-    title: {
+    buttonTitle: {
       type: String,
-      default: "",
+      default: ()=>{},
     },
-    model: {
-      type: String,
-      default: "center",
+    buttonModel :{
+      type: Array,
+      default: ()=>{},
     },
-    styles: {
+    buttonFree:{
+      type:Number,
+      default:()=>{}
+    },
+    buttonStyles: {
       type: Object,
       default: () => {},
     },
   },
 
-  methods: {
-    // 主标题样式
-    getTitleStyle() {
-      return {
-        color: this.styles.titleColor,
-        fontSize: this.styles.titleSize + "px",
-      };
-    },
-  },
 };
 </script>
 
 <style lang="scss" scoped>
-.title {
-  .title-left-model {
-    display: flex;
-    align-items: flex-end;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  .title-mid-model {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+.el-button{
+  position: relative;
+  background-color: var(--bgcColor);
+  color:var(--titleColor);
+  font-size:var(--titleSize);
+  left:var(--buttonLeft);
+  transform:translate(var(--trans));
 }
 </style>

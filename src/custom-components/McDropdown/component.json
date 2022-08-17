@@ -19,12 +19,12 @@
       "type": "object",
       "child": {
         "borderColor": {
-          "label": "输入框颜色",
+          "label": "边框颜色",
           "type": "color",
           "value": ""
         },
         "borderWidth": {
-          "label": "输入框宽度",
+          "label": "边框宽度",
           "type":"number",
           "value": 1,
           "options": {
