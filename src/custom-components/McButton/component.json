@@ -2,37 +2,6 @@
   "name": "按钮",
   "icon": "icon-switch",
   "fields": {
-    "buttonModel": {
-      "label": "布局选择",
-      "type": "select",
-      "value": "free",
-      "data": [
-        {
-          "id": "0",
-          "label": "自由",
-          "value": "free"
-        },
-        {
-          "id": "1",
-          "label": "居中",
-          "value": "middle"
-        },
-        {
-          "id": "2",
-          "label": "居右",
-          "value": "right"
-        }
-      ]
-    },
-    "buttonFree": {
-      "label": "自由布局",
-      "type": "number",
-      "value": 0,
-      "options": {
-        "min": 0,
-        "max": 100
-      }
-    },
     "buttonTitle": {
       "label": "文字",
       "type": "string",
@@ -51,6 +20,33 @@
             "max": 30
           }
         },
+        "paddingLeft": {
+          "label": "左右边距",
+          "type": "number",
+          "value": 20,
+          "options": {
+            "min": 1,
+            "max": 30
+          }
+        },
+        "paddingTop": {
+          "label": "上下边距",
+          "type": "number",
+          "value": 12,
+          "options": {
+            "min": 1,
+            "max": 30
+          }
+        },
+        "borderWidth": {
+          "label": "边框宽度",
+          "type": "number",
+          "value": 1,
+          "options": {
+            "min": 1,
+            "max": 10
+          }
+        },
         "titleColor": {
           "label": "文字颜色",
           "type": "color",
@@ -58,6 +54,11 @@
         },
         "bgColor": {
           "label": "背景颜色",
+          "type": "color",
+          "value": ""
+        },
+        "bdColor": {
+          "label": "边框颜色",
           "type": "color",
           "value": ""
         }

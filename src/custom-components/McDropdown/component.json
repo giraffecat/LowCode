@@ -43,19 +43,19 @@
         "paddingLeft": {
           "label": "左侧间距",
           "type": "number",
-          "value": 10,
+          "value": 0,
           "options": {
             "min": 0,
-            "max": 40
+            "max": 50
           }
         },
         "paddingRight": {
           "label": "右侧间距",
           "type": "number",
-          "value": 10,
+          "value": 0,
           "options": {
             "min": 0,
-            "max": 40
+            "max": 50
           }
         },
         "borderColor": {

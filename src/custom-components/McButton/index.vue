@@ -14,10 +14,13 @@
           '--titleColor': buttonStyles.titleColor
           ? buttonStyles.titleColor
           : 'rgba(242, 242, 242, 1)',
+          '--borderColor':buttonStyles.bdColor?buttonStyles.bdColor:'#DCDFE6',
           '--titleSize': buttonStyles.titleSize+'px',
-          '--buttonLeft':buttonModel=='free'?buttonFree+'%':(buttonModel=='middle'?'50%':'100%'),
-          '--trans':buttonModel=='middle'?'-50%':(buttonModel=='free'?'0%':'-100%'),
-           }" >{{buttonTitle}}</el-button>
+           '--paddingLeft':buttonStyles.paddingLeft+'px',
+           '--paddingTop':buttonStyles.paddingTop+'px',
+           '--borderWidth':buttonStyles.borderWidth+'px',
+           }" 
+           >{{buttonTitle}}</el-button>
   <!-- </div> -->
 </template>
 
@@ -53,7 +56,11 @@ export default {
   background-color: var(--bgcColor);
   color:var(--titleColor);
   font-size:var(--titleSize);
-  left:var(--buttonLeft);
-  transform:translate(var(--trans));
+  padding-top: var(--paddingTop);
+  padding-left:var(--paddingLeft);
+  padding-bottom: var(--paddingTop);
+  padding-right:var(--paddingLeft);
+  border-color: var(--borderColor);
+  border-width: var(--borderWidth);
 }
 </style>

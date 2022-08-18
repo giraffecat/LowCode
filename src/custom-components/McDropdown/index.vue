@@ -8,6 +8,7 @@
       v-model="value1"
       placeholder="请选择"
       @click.native="selectclick"
+      :popper-append-to-body="false"
       :style="{
         '--select-borderColor': optionAttrs.borderColor
           ? optionAttrs.borderColor
