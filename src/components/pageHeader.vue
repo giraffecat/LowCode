@@ -135,7 +135,11 @@ export default {
         if(this.curPage == 0 && this.$store.state.pages.length == 1) {
           reject();
         }
-        this.curPage = this.pageOptions[this.curPage - 1].value;
+        if(this.curPage == 0 && this.$store.state.pages.length > 1) {
+          eventBus.$emit("pageChange", [1, 0]);
+        }else{
+          this.curPage = this.pageOptions[this.curPage - 1].value;
+        }
         resolve();
       }).then(() => {
         eventBus.$emit("deletePage", deletePage);
@@ -151,7 +155,6 @@ export default {
         });
       })
     },
-
     changeOptions() {
       const pages = this.$store.state.pages;
       if (pages.length > 0) {

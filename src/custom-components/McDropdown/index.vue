@@ -61,6 +61,15 @@ export default {
       eventBus.$emit("selectClick", this.$attrs.id);
     },
   },
+  watch: {
+    optionList: {
+      handler() {
+        this.value1=""
+      },
+      immediate: true,
+      deep: true,
+    },
+  }
 };
 </script>
 
