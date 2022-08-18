@@ -86,19 +86,24 @@ export default {
   },
   mounted(){
     eventBus.$on('panelSize', (data) => {
-          this.value = data
+      this.value = data
     })
-    eventBus.$on('clearWidgets', (data) => {
-          this.widgets = data
+    eventBus.$on('clearWidgets', () => {
+      console.log("clearWidgets")
+      this.widgets = []
     })
-    eventBus.$on('savePanel', (data) => {
-      this.$store.commit(data,this.widgets);
+    // eventBus.$on('savePanel', (data) => {
+    //   this.$store.commit(data,this.widgets);
+    // })
+    eventBus.$on('deletePage', (deletePage) => {
+      this.$store.commit("deletePage", deletePage);
     })
-    eventBus.$on('pageChange', (data) => {
-          this.widgets = this.$store.state.pages[data]
+    eventBus.$on('pageChange', ([curPage, prePage]) => {
+      this.$store.commit('updateWidgets',[prePage, this.widgets]);
+      this.widgets = this.$store.state.pages[curPage]
     }),
-    eventBus.$on('updatePanel', (data) => {
-          this.$store.commit('updateWidgets',[data,this.widgets]);
+    eventBus.$on('updatePanel', ([curPage]) => {
+      this.$store.commit('updateWidgets',[curPage,this.widgets]);
     })
   },
 
