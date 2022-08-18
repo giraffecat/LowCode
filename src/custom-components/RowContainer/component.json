@@ -3,17 +3,43 @@
   "icon": "icon-rongqi",
   "children": [],
   "fields": {
+    "margin": {
+      "label": "外边距",
+      "type": "object",
+      "child": {
+        "u": {
+          "label": "上",
+          "type": "number",
+          "value": 0
+        },
+        "d": {
+          "label": "下",
+          "type": "number",
+          "value": 0
+        },
+        "l": {
+          "label": "左",
+          "type": "number",
+          "value": 0
+        },
+        "r": {
+          "label": "右",
+          "type": "number",
+          "value": 0
+        }
+      }
+    },
     "padding": {
-      "label": "边距",
+      "label": "内边距",
       "type": "object",
       "child": {
         "y": {
-          "label": "上下边距",
+          "label": "上下",
           "type": "number",
           "value": 0
         },
         "x": {
-          "label": "左右边距",
+          "label": "左右",
           "type": "number",
           "value": 10
         }

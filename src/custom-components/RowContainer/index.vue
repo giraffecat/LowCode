@@ -1,10 +1,7 @@
 <template>
   <div class="cnt">
     <!-- <div class="cnt-head h5-underline"></div> -->
-    <div
-      class="cnt-body"
-      ref="nestParent"
-    >
+    <div class="cnt-body" ref="nestParent">
       <!-- <div>model - {{model}}</div> -->
       <slot class="nest-child"></slot>
     </div>
@@ -12,37 +9,40 @@
 </template>
 
 <script>
-
 export default {
   name: "RowContainer",
   props: {
-    padding:{
+    margin: {
       type: Object,
       default: {},
     },
-    boxShadow:{
-      type:Boolean,
-      default:true
+    padding: {
+      type: Object,
+      default: {},
     },
-    justifyContent:{
+    boxShadow: {
+      type: Boolean,
+      default: true,
+    },
+    justifyContent: {
       type: String,
-      default:'flex-start'
+      default: "flex-start",
     },
-    alignItems:{
+    alignItems: {
       type: String,
-      default:'center'
+      default: "center",
     },
-    background:{
+    background: {
       type: String,
-      default:''
+      default: "",
     },
-    gap:{
+    gap: {
       type: Number,
-      default:10,
-    }
+      default: 10,
+    },
   },
   mounted() {
-    this.updateStyles()
+    this.updateStyles();
     // console.log(this.$slots)
   },
   computed: {
@@ -53,20 +53,25 @@ export default {
         justifyContent: this.justifyContent,
         alignItems: this.alignItems,
         background: this.background,
-        gap: this.gap + 'px',
+        gap: this.gap + "px",
+        margin: `${this.margin.u}px ${this.margin.r}px ${this.margin.d}px ${this.margin.l}px`,
         padding: `${this.padding.y}px ${this.padding.x}px`,
-        boxShadow: `${this.boxShadow === true ? '0 4px 6px 0 rgba(12, 31, 80, 0.14)' : 'none'} `
+        boxShadow: `${
+          this.boxShadow === true
+            ? "0 4px 6px 0 rgba(12, 31, 80, 0.14)"
+            : "none"
+        } `,
       };
     },
   },
-  methods:{
-    updateStyles(){
+  methods: {
+    updateStyles() {
       // console.log()
-      const el = this.$refs.nestParent.childNodes[0]
+      const el = this.$refs.nestParent.childNodes[0];
       // el.style.justifyContent = "flex-end"
       // console.log(el)
-      Object.assign(el.style, this.getTitleStyle)
-    }
+      Object.assign(el.style, this.getTitleStyle);
+    },
   },
   watch: {
     $slot: {
@@ -74,22 +79,26 @@ export default {
         // console.log("change slot");
       },
     },
-    justifyContent: 'updateStyles',
-    alignItems: 'updateStyles',
-    background: 'updateStyles',
-    padding: {
-      handler: 'updateStyles',
-      deep:true
+    justifyContent: "updateStyles",
+    alignItems: "updateStyles",
+    background: "updateStyles",
+    margin: {
+      handler: "updateStyles",
+      deep: true,
     },
-    gap: 'updateStyles',
-    boxShadow: 'updateStyles',
+    padding: {
+      handler: "updateStyles",
+      deep: true,
+    },
+    gap: "updateStyles",
+    boxShadow: "updateStyles",
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .nest-child {
-    display: flex;
-    flex-direction: row;
-  }
+  display: flex;
+  flex-direction: row;
+}
 </style>

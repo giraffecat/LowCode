@@ -19,33 +19,37 @@
 export default {
   name: "ColumnContainer",
   props: {
-    padding:{
+    margin: {
       type: Object,
       default: {},
     },
-    justifyContent:{
-      type: String,
-      default:'flex-start'
+    padding: {
+      type: Object,
+      default: {},
     },
-    alignItems:{
+    justifyContent: {
       type: String,
-      default:'center'
+      default: "flex-start",
     },
-    background:{
+    alignItems: {
       type: String,
-      default:''
+      default: "center",
     },
-    gap:{
+    background: {
+      type: String,
+      default: "",
+    },
+    gap: {
       type: Number,
-      default:10,
+      default: 10,
     },
-    boxShadow:{
-      type:Boolean,
-      default:true
+    boxShadow: {
+      type: Boolean,
+      default: true,
     },
   },
   mounted() {
-    this.updateStyles()
+    this.updateStyles();
     // console.log(this.$slots)
   },
   computed: {
@@ -56,19 +60,24 @@ export default {
         justifyContent: this.justifyContent,
         alignItems: this.alignItems,
         background: this.background,
-        gap: this.gap + 'px',
+        gap: this.gap + "px",
+        margin: `${this.margin.u}px ${this.margin.r}px ${this.margin.d}px ${this.margin.l}px`,
         padding: `${this.padding.y}px ${this.padding.x}px`,
-        boxShadow: `${this.boxShadow === true ? '0 4px 6px 0 rgba(12, 31, 80, 0.14)' : 'none'} `
+        boxShadow: `${
+          this.boxShadow === true
+            ? "0 4px 6px 0 rgba(12, 31, 80, 0.14)"
+            : "none"
+        } `,
       };
     },
   },
-  methods:{
-    updateStyles(){
+  methods: {
+    updateStyles() {
       // console.log(this.padding)
-      const el = this.$refs.nestParent.childNodes[0]
+      const el = this.$refs.nestParent.childNodes[0];
       // el.style.justifyContent = "flex-end"
-      Object.assign(el.style, this.getTitleStyle)
-    }
+      Object.assign(el.style, this.getTitleStyle);
+    },
   },
   watch: {
     $slot: {
@@ -76,15 +85,19 @@ export default {
         // console.log("change slot");
       },
     },
-    justifyContent: 'updateStyles',
-    alignItems: 'updateStyles',
-    background: 'updateStyles',
-    gap: 'updateStyles',
-    padding: {
-      handler: 'updateStyles',
-      deep:true
+    justifyContent: "updateStyles",
+    alignItems: "updateStyles",
+    background: "updateStyles",
+    gap: "updateStyles",
+    margin: {
+      handler: "updateStyles",
+      deep: true,
     },
-    boxShadow: 'updateStyles',
+    padding: {
+      handler: "updateStyles",
+      deep: true,
+    },
+    boxShadow: "updateStyles",
   },
 };
 </script>

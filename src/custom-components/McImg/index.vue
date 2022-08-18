@@ -6,11 +6,11 @@
  * @LastEditTime: 2021-12-27 17:02:20
 -->
 <template>
-  <div>
+  <div class="imgContainer">
     <img
       class="img"
       :src="imagePath || defaultImage"
-      :style="{ borderRadius: radius + 'px', height: height + 'px'}"
+      :style="{ borderRadius: radius + 'px', height: height + 'px' }"
     />
   </div>
 </template>
@@ -44,7 +44,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.img {
-  object-fit: cover;
+.imgContainer {
+  overflow: hidden;
+  .img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 </style>

@@ -1,8 +1,14 @@
 <template>
-  <el-carousel :height="theHeight" :interval="theInterval" :autoplay="isAutoPlay">
+  <el-carousel
+    :style="{ width: theWidth }"
+    :height="theHeight"
+    :interval="theInterval"
+    :autoplay="isAutoPlay"
+    :direction="theDirection"
+  >
     <el-carousel-item v-for="item in carouselImgList" :key="item.id">
       <div class="imgContainer">
-        <img class="imgs" :src="item.image">
+        <img class="imgs" :src="item.image" />
       </div>
     </el-carousel-item>
   </el-carousel>
@@ -10,32 +16,37 @@
 
 <script>
 export default {
-  name: 'McCarousel',
+  name: "McCarousel",
 
   props: {
     attrs: {
       type: Object,
-      default: () => { }
+      default: () => {},
     },
     carouselImgList: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
 
   computed: {
+    theWidth() {
+      return `${this.attrs.width}px`;
+    },
     theHeight() {
-      return `${this.attrs.height}px`
+      return `${this.attrs.height}px`;
     },
     theInterval() {
       return this.attrs.switchInterval * 1000;
     },
     isAutoPlay() {
       return this.attrs.autoPlay;
-    }
+    },
+    theDirection() {
+      return this.attrs.direction;
+    },
   },
-
-}
+};
 </script>
 
 <style lang="scss" scoped>

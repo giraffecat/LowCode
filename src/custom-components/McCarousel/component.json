@@ -39,14 +39,40 @@
       "label": "轮播图设置",
       "type": "object",
       "child": {
+        "width": { 
+          "label": "图片宽度",
+          "type": "number",
+          "value": 375,
+          "options": {
+            "min": 100,
+            "max": 1000
+          }
+        },
         "height": { 
           "label": "图片高度",
           "type": "number",
-          "value": 250,
+          "value": 200,
           "options": {
             "min": 200,
-            "max": 300
+            "max": 500
           }
+        },
+        "direction": {
+          "label": "滚动方向",
+          "type": "select",
+          "value": "horizontal",
+          "data": [
+            {
+              "id": 1,
+              "label": "水平",
+              "value": "horizontal"
+            },
+            {
+              "id": 2,
+              "label": "垂直",
+              "value": "vertical"
+            }
+          ]
         },
         "autoPlay": {
           "label": "自动播放",
