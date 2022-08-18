@@ -122,7 +122,7 @@ export default {
       if (resArray[0] >= 0) {
         resArray[1].id = this.$getRandomCode(8)
         // console.log('1111', resArray[1].id)
-        list.splice(resArray[0], 0, resArray[1]);
+        list.splice(resArray[0]+1, 0, resArray[1]);
         // console.log("复制成功");
         
       } else {
