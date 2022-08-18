@@ -38,8 +38,6 @@
 </template>
 
 <script>
-import { login } from '../../../mall-cook/src/api/user';
-
 export default {
   name: "McVideo",
 
