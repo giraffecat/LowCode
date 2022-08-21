@@ -9,6 +9,7 @@ export default new Vuex.Store({
     widgets: [], // 画布组件
     pages:[],
     curPage: 0, 
+    isPreview: false // 是否处于预览状态
   },
   mutations: {
     setWidgets(state, widgets = []) {
@@ -38,6 +39,10 @@ export default new Vuex.Store({
     
     deletePage(state, deletePage){
       state.pages.splice(deletePage, 1);
+    },
+
+    setPreview(state,status){
+      state.isPreview = status
     }
   },
   actions: {},

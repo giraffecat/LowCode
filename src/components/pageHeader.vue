@@ -89,6 +89,11 @@ export default {
   },
   mounted() {
     this.newPage();
+    eventBus.$on('updateCurPage',(cur)=>{
+      // console.log(cur);
+      this.curPage = cur
+      
+    })
   },
   methods: {
     toSchema() {
@@ -99,6 +104,7 @@ export default {
     },
     toPreview() {
       this.isShowPreview = true;
+      this.$store.commit('setPreview',true)
     },
     emitValue() {
       eventBus.$emit("panelSize", this.value);
@@ -106,6 +112,7 @@ export default {
     },
     handlePreviewChange() {
       this.isShowPreview = false;
+
     },
     deleteAll() {
       // 每次更新仓库的时候，都要手动更新一下updateWidgets

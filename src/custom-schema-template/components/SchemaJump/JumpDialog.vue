@@ -52,7 +52,7 @@ import { mapState } from "vuex";
 
 export default {
   name: "JumpDialog",
-  inject: ["value"],
+  props: ["value"],
   data() {
     return {
       show: false,
@@ -81,12 +81,14 @@ export default {
     },
 
     changeTab(type) {
+      // console.log(type,this.value);
+      // 向响应式对象中添加一个属性，并确保这个新属性同样是响应式的，且触发视图更新。它必须用于向响应式对象上添加新属性
       this.$set(this.value, "type", type);
       this.$set(this.value, "id", "");
     },
-    setPageId(id) {
-      this.$set(this.value, "id", id);
-    },
+    // setPageId(id) {
+    //   this.$set(this.value, "id", id);
+    // },
   },
 };
 </script>

@@ -63,5 +63,10 @@
           "value": ""
         }
       }
+    },
+    "jump": {
+      "label": "跳转",
+      "type": "jump",
+      "value": {}
     }
   }}

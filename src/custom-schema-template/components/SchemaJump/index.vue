@@ -18,7 +18,7 @@
       </template>
     </div>
 
-    <JumpDialog ref='jump'></JumpDialog>
+    <JumpDialog ref='jump' :value="value"></JumpDialog>
 
   </config-item>
 </template>
@@ -32,15 +32,9 @@ export default {
 
   mixins: [schemaMixin],
 
-  provide() {
-    return {
-      value: this.value,
-    };
-  },
-
   props: {
     value: {
-      default: () => ({}),
+      default: () => {},
     },
   },
 
@@ -52,6 +46,7 @@ export default {
       switch (this.mValue.type) {
         case "custom":
           page = this.pages.find((page) => page.id == this.mValue.id);
+          // console.log(page);
           break;
         case "link":
           page = { name: "外链h5" };

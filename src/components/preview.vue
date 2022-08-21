@@ -47,6 +47,7 @@ export default {
     methods: {
         close(){
             this.$emit('change', false)
+            this.$store.commit('setPreview',false)
         }
     },
 };

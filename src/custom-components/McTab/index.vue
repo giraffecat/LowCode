@@ -20,6 +20,8 @@
 </template>
 
 <script>
+
+import eventBus from "@/utils/eventBus";
 export default {
   name: 'McTab',
 
@@ -56,13 +58,28 @@ export default {
   },
 
   methods: {
-    // 点击跳转
+    // 点击跳转，只有在预览模式下才能点击
     jump(index){
-      console.log('jump');
-      const id = this.tabList[index].jump.id
-      // console.log(id);
-      // id表示跳转页面的id；或者外部链接link
-      window.open(id)
+      // console.log('jump');
+      
+      if (this.$store.state.isPreview) {
+        // console.log("jump");
+        const id = this.tabList[index].jump.id
+        // 如果是外部链接
+        if(this.tabList[index].jump.type === 'link'){
+          window.open(id)
+        }
+        // 如果是内部页面
+        if(this.tabList[index].jump.type === 'custom'){
+          // 将现在的widgets变为id对应的页码
+          const curPage = this.$store.state.pages.find(page=>page.id === id).name.slice(2)
+          this.$store.commit('setPage', Number(curPage))
+          eventBus.$emit("updateWidgets",curPage)
+          eventBus.$emit('updateCurPage',curPage)
+          
+        }
+        // console.log(this.jump);
+      }
 
     },
     // 容器样式
