@@ -5,10 +5,10 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    panelSize: [390, 844], // 画布大小
+    panelSize: [375, 667], // 画布大小
     widgets: [], // 画布组件
     pages:[],
-    curPage:0,
+    curPage: 0, 
   },
   mutations: {
     setWidgets(state, widgets = []) {
@@ -18,18 +18,24 @@ export default new Vuex.Store({
     setPage(state, page) {
       state.curPage = page;
     },
-    setPenelSize(state, panelSize = [390, 844]) {
+    updateWidgets(state, widgets){
+      // console.log(111);
+      const curIdx = state.pages.findIndex(
+        (page) => page.name.slice(2) == state.curPage
+      );
+      // console.log(curIdx);
+      if(state.pages[curIdx]) state.pages[curIdx].widgets = widgets;
+    },
+    setPenelSize(state, panelSize = [375, 667]) {
       state.panelSize = panelSize;
     },
     saveWidgets(state,widgets){
       state.pages.push(widgets)
     },
-    newPage(state, widgets){
-      state.pages.push([]);
+    newPage(state, page){
+      state.pages.push(page);
     },
-    updateWidgets(state,[updatePage, widgets]){
-      state.pages[updatePage] = widgets;
-    },
+    
     deletePage(state, deletePage){
       state.pages.splice(deletePage, 1);
     }

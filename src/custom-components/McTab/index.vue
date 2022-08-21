@@ -9,7 +9,7 @@
   <div class="wrap" :style="$getStyle(styles)">
     <div class="wrap-body" :style="getWrapStyle()">
       <ul class="tabs" :style="getTabsStyle()">
-        <li v-for="item in tabList" :key="item.id" class="tab-item" :style="geItemStyle()">
+        <li v-for="(item,index) in tabList" :key="item.id" class="tab-item" :style="geItemStyle()" @click="jump(index)">
           <img v-show="['image', 'image-text'].includes(attrs.type)" class="tab-item-img" :style="geItemImgStyle()"
             :src="item.image || defaultIamge" />
           <span v-show="['text', 'image-text'].includes(attrs.type)" class="ellipsis-1">{{ item.label }}</span>
@@ -56,6 +56,15 @@ export default {
   },
 
   methods: {
+    // 点击跳转
+    jump(index){
+      console.log('jump');
+      const id = this.tabList[index].jump.id
+      // console.log(id);
+      // id表示跳转页面的id；或者外部链接link
+      window.open(id)
+
+    },
     // 容器样式
     getWrapStyle() {
       return {

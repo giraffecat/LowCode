@@ -1,17 +1,13 @@
 <template>
   <div class="page-head">
     <span>字节青训营Low-Code</span>
-    <el-button size="small" @click="deleteAll">清空画布</el-button>
+    <el-button size="small" @click="deleteAll">清空当前画布</el-button>
     <!-- <el-button size="small" @click="savePanel">保存画布</el-button> -->
     <el-button size="small" @click="newPage">新建画布</el-button>
     <el-button size="small" @click="deletePage">删除画布</el-button>
 
     <div class="page-option">
-      <el-select
-        v-model="curPage"
-        placeholder=""
-        @click.native="changeOptions"
-      >
+      <el-select v-model="curPage" placeholder="" @change="changeOptions">
         <el-option
           v-for="item in pageOptions"
           :key="item.value"
@@ -27,7 +23,7 @@
         <el-select
           v-model="value"
           class="m-2"
-          placeholder="IPhone13"
+          placeholder="IPhone XR"
           size="large"
           @change="emitValue"
         >
@@ -44,26 +40,25 @@
     <el-button size="small" @click="toSchema">schema 生成器</el-button>
 
     <!-- 预览 -->
-    <Preview v-if="isShowPreview" @change="handlePreviewChange"/>
+    <Preview v-if="isShowPreview" @change="handlePreviewChange" />
   </div>
 </template>
 
 <script>
 import eventBus from "@/utils/eventBus";
-import { rejects } from "assert";
+import { mapState } from "vuex";
 export default {
   name: "pageHeader",
   data() {
     return {
       value: [375, 667],
-
-      curPage: null,
+      curPage: -1,
       pageOptions: [],
 
       options: [
         {
           value: [375, 667],
-          label: "iPhone 8",
+          label: "iPhone XR",
         },
         {
           value: [375, 812],
@@ -85,14 +80,15 @@ export default {
       isShowPreview: false,
     };
   },
+  computed: mapState(["pages"]),
   watch: {
     curPage(cur, pre) {
-      //删除会触发
-      eventBus.$emit("pageChange", [cur, pre]);
+      // console.log('cishi',cur);
+      this.$store.commit("setPage", Number(cur));
     },
   },
   mounted() {
-    this.newPage()
+    this.newPage();
   },
   methods: {
     toSchema() {
@@ -112,59 +108,72 @@ export default {
       this.isShowPreview = false;
     },
     deleteAll() {
-      eventBus.$emit("clearWidgets", []);
+      // 每次更新仓库的时候，都要手动更新一下updateWidgets
+      this.$store.commit('updateWidgets',[])
+      eventBus.$emit("updateWidgets", this.curPage);
     },
     newPage() {
-      this.$store.commit("newPage",[]);
-      this.changeOptions()
-      this.curPage =  this.pageOptions[this.pageOptions.length - 1].value;
+      // 将画布清空
+      this.$store.commit("setWidgets", []);
+      const len = this.pages.length;
+      const i = len > 0 ? +this.pages[len - 1].name.slice(2) + 1 : 0;
+      // console.log(i)
+      const page = {
+        id: this.$getRandomCode(8),
+        name: `页面${i}`,
+        widgets: [],
+      };
+      this.$store.commit("newPage", page);
+      this.curPage = i;
+      this.pageOptions.push({
+        value: this.curPage,
+        label: `页面${this.curPage}`,
+      });
+      this.changeOptions();
+
       this.$notify({
-          title: '成功',
-          message: '创建成功！',
-          type: 'success'
-        });
+        title: "成功",
+        message: "创建成功！",
+        type: "success",
+      });
     },
     savePanel() {
       //保存
     },
     deletePage() {
-      //删除当前页面 => 先跳转回第上一个页面 => 再删除当前页面
-      let deletePage =  this.curPage;
-      //先触发页面跳转
-      new Promise((resolve, reject) => {
-        if(this.curPage == 0 && this.$store.state.pages.length == 1) {
-          reject();
+      let delIdx = 0;
+      // curPage对应的下标
+      const curIdx = this.pageOptions.findIndex(
+        (page) => page.value == this.curPage
+      );
+      // 页数超过1才能删除
+      if (this.pages.length > 1) {
+        // 如何更新curPage?判断此时curPage的下标，新的下标就是此时下标或-1
+        if (curIdx == this.pageOptions.length - 1) {
+          delIdx = curIdx - 1;
+        } else {
+          delIdx = curIdx;
         }
-        if(this.curPage == 0 && this.$store.state.pages.length > 1) {
-          eventBus.$emit("pageChange", [1, 0]);
-        }else{
-          this.curPage = this.pageOptions[this.curPage - 1].value;
-        }
-        resolve();
-      }).then(() => {
-        eventBus.$emit("deletePage", deletePage);
+        this.$store.commit("deletePage", curIdx);
+        this.pageOptions.splice(curIdx, 1);
+        this.curPage = this.pageOptions[delIdx].value;
+
+        // console.log("此时widgets展示的", this.curPage);
+        eventBus.$emit("updateWidgets", this.curPage);
         this.$notify({
-          title: '成功',
-          message: '成功删除画布',
-          type: 'success'
+          title: "成功",
+          message: "成功删除画布",
+          type: "success",
         });
-      }).catch(() => {
+      } else {
         this.$notify.error({
-          title: '失败',
-          message: '不可删除画布',
+          title: "失败",
+          message: "不可删除画布",
         });
-      })
+      }
     },
     changeOptions() {
-      const pages = this.$store.state.pages;
-      if (pages.length > 0) {
-        this.pageOptions = [];
-        for (let i in pages) {
-          this.pageOptions[i] = { value: i, label: `页面${i}` };
-        }
-      } else {
-        this.pageOptions = [];
-      }
+      eventBus.$emit("updateWidgets", this.curPage);
     },
   },
 };

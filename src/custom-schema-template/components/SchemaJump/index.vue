@@ -1,11 +1,3 @@
-<!--
- * @Description: 页面跳转选择组件
- * @Autor: WangYuan
- * @Date: 2021-08-12 11:06:37
- * @LastEditors: WangYuan
- * @LastEditTime: 2021-09-26 19:38:10
--->
-
 <template>
   <config-item :label='label'>
     <div class="flex col-center h32">
@@ -33,7 +25,7 @@
 
 <script>
 import schemaMixin from "@/mixin/schemaMixin";
-import { mapGetters } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   name: "SchemaJump",
@@ -53,15 +45,13 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["project", "fixedPages"]),
+    ...mapState(["pages"]),
     pageName() {
+      // console.log(this.mValue);
       let page = null;
       switch (this.mValue.type) {
-        case "fixed":
-          page = this.fixedPages.find((page) => page.id == this.mValue.id);
-          break;
         case "custom":
-          page = this.project.pages.find((page) => page.id == this.mValue.id);
+          page = this.pages.find((page) => page.id == this.mValue.id);
           break;
         case "link":
           page = { name: "外链h5" };

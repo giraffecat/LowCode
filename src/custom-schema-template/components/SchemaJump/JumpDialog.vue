@@ -1,10 +1,3 @@
-<!--
- * @Description: What's this for
- * @Autor: WangYuan
- * @Date: 2021-08-12 17:23:08
- * @LastEditors: WangYuan
- * @LastEditTime: 2021-08-31 20:12:08
--->
 <template>
   <el-dialog
     title="请选择跳转页面"
@@ -23,24 +16,6 @@
       </div>
     </div>
 
-    <!-- 微页面 -->
-    <template v-if="value.type == 'fixed'">
-      <el-select
-        v-model="value.id"
-        placeholder="请选择要跳转的微页面"
-        size='mini'
-        style="width:250px"
-      >
-        <el-option
-          v-for="(page,i) in fixedPages"
-          :key="i"
-          :label="page.name"
-          :value="page.id"
-        >
-        </el-option>
-      </el-select>
-    </template>
-
     <!-- 自定义页面 -->
     <template v-if="value.type == 'custom'">
       <el-select
@@ -50,7 +25,7 @@
         style="width:250px"
       >
         <el-option
-          v-for="(page,i) in customPages"
+          v-for="(page,i) in pages"
           :key="i"
           :label="page.name"
           :value="page.id"
@@ -73,7 +48,7 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   name: "JumpDialog",
@@ -82,10 +57,6 @@ export default {
     return {
       show: false,
       tabs: [
-        {
-          label: "微页面",
-          type: "fixed",
-        },
         {
           label: "自定义页面",
           type: "custom",
@@ -102,10 +73,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["project", "fixedPages"]),
-    customPages() {
-      return this.project.pages;
-    },
+    ...mapState(["pages"]),
   },
   methods: {
     open() {

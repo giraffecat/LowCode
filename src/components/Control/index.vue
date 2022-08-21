@@ -13,7 +13,7 @@
       <draggable
         v-model="$initializing"
         :group="{ name: 'itxst', pull: 'clone' }"
-        :sort=false
+        :sort="false"
         :clone="handleClone"
         animation="300"
       >
@@ -31,9 +31,11 @@
 
     <!-- 页面面板 -->
     <div class="control-page">
-      
       <div class="panel">
-        <div class="panel-content" :style="{width: `${ScreenWidth}px`, height: `${ScreenHeight}px`}">
+        <div
+          class="panel-content"
+          :style="{ width: `${ScreenWidth}px`, height: `${ScreenHeight}px` }"
+        >
           <div class="panel-header"></div>
 
           <!-- 可根据实际需求选择是否需要物料组件 -->
@@ -43,7 +45,7 @@
 
           <!-- 递归可嵌套物料 -->
           <control-nest-widget :widgets.sync="widgets" />
-           <!-- <div class="panel-footer"></div> -->
+          <!-- <div class="panel-footer"></div> -->
         </div>
       </div>
     </div>
@@ -66,7 +68,7 @@
 </template>
 
 <script>
-import eventBus from '@/utils/eventBus'
+import eventBus from "@/utils/eventBus";
 export default {
   name: "Control",
 
@@ -81,30 +83,47 @@ export default {
       //屏幕尺寸
       value: [375, 667],
       widgets: [],
-      curComponent: undefined
+      curComponent: undefined,
     };
   },
-  mounted(){
-    eventBus.$on('panelSize', (data) => {
-      this.value = data
+  mounted() {
+    eventBus.$on("panelSize", (data) => {
+      this.value = data;
+    });
+    eventBus.$on("updateWidgets",(curPage)=>{
+      
+      const curIdx = this.$store.state.pages.findIndex(
+        (page) => page.name.slice(2) == curPage
+      );
+      // console.log('widget变化',curIdx);
+      this.widgets = this.$store.state.pages[curIdx].widgets
     })
-    eventBus.$on('clearWidgets', () => {
-      console.log("clearWidgets")
-      this.widgets = []
-    })
+
+    
     // eventBus.$on('savePanel', (data) => {
     //   this.$store.commit(data,this.widgets);
     // })
-    eventBus.$on('deletePage', (deletePage) => {
-      this.$store.commit("deletePage", deletePage);
-    })
-    eventBus.$on('pageChange', ([curPage, prePage]) => {
-      this.$store.commit('updateWidgets',[prePage, this.widgets]);
-      this.widgets = this.$store.state.pages[curPage]
-    }),
-    eventBus.$on('updatePanel', ([curPage]) => {
-      this.$store.commit('updateWidgets',[curPage,this.widgets]);
-    })
+    // eventBus.$on("deletePage", (deletePage) => {
+    //   this.$store.commit("deletePage", deletePage);
+    // });
+    // eventBus.$on("pageChange", ([curPage, prePage]) => {
+    //   console.log(111,curPage)
+    //   // const page = {
+    //   //   id: this.$getRandomCode(8),
+    //   //   name: `页面${prePage}`,
+    //   //   widgets: [this.widgets],
+    //   // };
+    //   // this.$store.commit("updateWidgets", [prePage, page]);
+    //   // this.widgets = this.$store.state.pages[curPage].widgets;
+    // }),
+    //   eventBus.$on("updatePanel", ([curPage]) => {
+    //     const page = {
+    //       id: this.$getRandomCode(8),
+    //       name: `页面${curPage}`,
+    //       widgets: [this.widgets],
+    //     };
+    //     this.$store.commit("updateWidgets", [curPage, page]);
+    //   });
   },
 
   computed: {
@@ -113,13 +132,12 @@ export default {
     },
     ScreenWidth() {
       // console.log(this.value)
-      
+
       return this.value[0] + "";
     },
     ScreenHeight() {
       return this.value[1] + "";
-
-    }
+    },
   },
 
   methods: {
@@ -136,14 +154,17 @@ export default {
   watch: {
     widgets: {
       handler(val) {
+        // eventBus.$emit("pageChange", [1, 0]);
         // console.log("widgets", val)
-        this.$store.commit('setWidgets',val)
-        
+        // 更新此时的widgets
+        this.$store.commit("setWidgets", val);
+        // 更新pages中的widgets
+        this.$store.commit("updateWidgets", val);
       },
       immediate: true,
       deep: true,
     },
-  }
+  },
 };
 </script>
 
@@ -192,15 +213,14 @@ export default {
     overflow: auto;
 
     .panel {
-
       .panel-content {
         margin: 50px auto;
         background: #fff;
         box-shadow: 0px 10px 24px rgba(0, 0, 0, 0.1);
         .panel-header {
-          widows: 100%; /*no*/
+          // border: 1px solid red;
           height: 64px; /*no*/
-          background-image: url("../image/phone-head.png");
+          background-image: url("../../assets/images/head.png");
           background-size: cover;
         }
         // .panel-footer{

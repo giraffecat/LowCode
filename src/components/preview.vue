@@ -76,7 +76,7 @@ export default {
         .panel-header {
           widows: 100%; /*no*/
           height: 64px; /*no*/
-          background-image: url("./image/phone-head.png");
+          background-image: url("../assets/images/head.png");
           background-size: cover;
         }
         .panel {
