@@ -57,11 +57,11 @@
           :schema="curSchema"
           v-model="curComponent"
         ></custom-schema-template>
-
+<!-- 
         <div>
           <h4 class="f-theme mt10 mb10">当前物料数据</h4>
           {{ curComponent }}
-        </div>
+        </div> -->
       </template>
     </div>
   </div>
@@ -98,32 +98,6 @@ export default {
       // console.log('widget变化',curIdx);
       this.widgets = this.$store.state.pages[curIdx].widgets
     })
-
-    
-    // eventBus.$on('savePanel', (data) => {
-    //   this.$store.commit(data,this.widgets);
-    // })
-    // eventBus.$on("deletePage", (deletePage) => {
-    //   this.$store.commit("deletePage", deletePage);
-    // });
-    // eventBus.$on("pageChange", ([curPage, prePage]) => {
-    //   console.log(111,curPage)
-    //   // const page = {
-    //   //   id: this.$getRandomCode(8),
-    //   //   name: `页面${prePage}`,
-    //   //   widgets: [this.widgets],
-    //   // };
-    //   // this.$store.commit("updateWidgets", [prePage, page]);
-    //   // this.widgets = this.$store.state.pages[curPage].widgets;
-    // }),
-    //   eventBus.$on("updatePanel", ([curPage]) => {
-    //     const page = {
-    //       id: this.$getRandomCode(8),
-    //       name: `页面${curPage}`,
-    //       widgets: [this.widgets],
-    //     };
-    //     this.$store.commit("updateWidgets", [curPage, page]);
-    //   });
   },
 
   computed: {

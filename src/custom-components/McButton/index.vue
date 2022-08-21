@@ -69,8 +69,8 @@ export default {
           // 将现在的widgets变为id对应的页码
           const curPage = this.$store.state.pages.find(page=>page.id === id).name.slice(2)
           this.$store.commit('setPage', Number(curPage))
-          eventBus.$emit("updateWidgets",curPage)
-          eventBus.$emit('updateCurPage',curPage)
+          eventBus.$emit("updateWidgets",Number(curPage))
+          eventBus.$emit('updateCurPage',Number(curPage))
           
         }
       }
