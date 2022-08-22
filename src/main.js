@@ -45,10 +45,12 @@ Vue.component("draggable", draggable);
 import Imgpond from 'imgpond'
 Vue.use(Imgpond, {
   request,
-  url: process.env.VUE_APP_UPLOAD_API + 'fileUpload',
-  // proxy: {
-  //   '/api': '/fileUpload'
-  // },
+  // 一直报错
+  // url: 'http://101.34.27.188:3010/fileUpload',
+  // 本地调试跨域
+  proxy: {
+    '/api': '/fileUpload'
+  },
   param: {
     domainId: 3,
     dir: 'img'
