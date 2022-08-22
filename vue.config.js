@@ -44,5 +44,15 @@ module.exports = {
       .before('postcss-loader') // this makes it work.
       .options({ remUnit: 37.5, remPrecision: 8 })
       .end()
-  }
+  },
+  devServer: {
+    proxy: {
+      '/api': {
+        target: `http://localhost:3000`,
+        pathRewrite: {
+          ['^/api']: ''
+        }
+      }
+    },
+  },
 }
