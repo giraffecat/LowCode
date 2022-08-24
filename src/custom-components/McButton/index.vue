@@ -70,8 +70,7 @@ export default {
           const curPage = this.$store.state.pages.find(page=>page.id === id).name.slice(2)
           this.$store.commit('setPage', Number(curPage))
           eventBus.$emit("updateWidgets",Number(curPage))
-          eventBus.$emit('updateCurPage',Number(curPage))
-          
+          eventBus.$emit('updateCurPage',Number(curPage))    
         }
       }
     },

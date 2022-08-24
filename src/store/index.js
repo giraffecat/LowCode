@@ -9,12 +9,16 @@ export default new Vuex.Store({
     widgets: [], // 画布组件
     pages:[],
     curPage: 0, 
-    isPreview: false // 是否处于预览状态
+    isPreview: false, // 是否处于预览状态,
+    userInfo: {} //个人信息
   },
   mutations: {
     setWidgets(state, widgets = []) {
       // state.widgets = widgets;
       Vue.set(state, 'widgets', widgets)
+    },
+    setUserInfo(state, userInfo) {
+      state.userInfo = userInfo;
     },
     setPage(state, page) {
       state.curPage = page;

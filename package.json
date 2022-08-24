@@ -19,6 +19,8 @@
     "vant": "^2.12.48",
     "vue": "^2.6.11",
     "vue-awesome-swiper": "^5.0.1",
+    "vue-cookie": "^1.1.4",
+    "vue-cookies": "^1.8.1",
     "vue-json-viewer": "^2.2.21",
     "vue-router": "^3.2.0",
     "vuedraggable": "^2.24.3",

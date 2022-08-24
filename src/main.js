@@ -30,6 +30,11 @@ import '@/utils/registerSchema.js' // 注册左侧组件库
 
 import Element from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
+
+import VueCookies from 'vue-cookies'
+// Tell Vue to use the plugin
+Vue.use(VueCookies);
+ 
 Vue.use(Element);
 Vue.use(Vant);
 // lodash

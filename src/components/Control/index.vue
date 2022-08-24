@@ -102,6 +102,7 @@ export default {
 
   computed: {
     curSchema() {
+      console.log("curSchema")
       return this.$fields[this.curComponent.component];
     },
     ScreenWidth() {
@@ -117,8 +118,6 @@ export default {
   methods: {
     // 复制物料
     handleClone(model) {
-      // console.log("deepClone")
-      // console.log("widgets", this.widgets)
       return {
         ...this._.cloneDeep(model),
         id: this.$getRandomCode(8),

@@ -22,7 +22,6 @@ export default {
                 return timestamp + nums;
             }
         })
-
         /**
          * px to rem
          * 以375像素为画板，创建页面，则转换为375px对应

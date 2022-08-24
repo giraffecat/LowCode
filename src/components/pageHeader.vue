@@ -1,44 +1,58 @@
 <template>
   <div class="page-head">
     <span>字节青训营Low-Code</span>
-    <el-button size="small" @click="deleteAll">清空当前画布</el-button>
-    <!-- <el-button size="small" @click="savePanel">保存画布</el-button> -->
-    <el-button size="small" @click="newPage">新建画布</el-button>
-    <el-button size="small" @click="deletePage">删除画布</el-button>
-
-    <div class="page-option">
-      <el-select v-model="curPage" placeholder="" @change="changeOptions">
-        <el-option
-          v-for="item in pageOptions"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        >
-        </el-option>
-      </el-select>
-    </div>
-
-    <div class="page-menu">
-      <div class="panel-size-select">
-        <el-select
-          v-model="value"
-          class="m-2"
-          placeholder="IPhone XR"
-          size="large"
-          @change="emitValue"
-        >
+    <div class="page-control">
+      <el-button class="page-item" size="small" @click="deleteAll">清空当前画布</el-button>
+      <!-- <el-button size="small" @click="savePanel">保存画布</el-button> -->
+      <el-button class="page-item" size="small" @click="newPage">新建画布</el-button>
+      <el-button class="page-item" size="small" @click="deletePage">删除画布</el-button>
+      <div class="page-option page-item">
+        <el-select v-model="curPage" placeholder="" @change="changeOptions">
           <el-option
-            v-for="item in options"
-            :key="item.value.join('')"
+            v-for="item in pageOptions"
+            :key="item.value"
             :label="item.label"
             :value="item.value"
-          />
+          >
+          </el-option>
         </el-select>
       </div>
+      <div class="page-menu page-item" >
+        <div class="panel-size-select">
+          <el-select
+            v-model="value"
+            class="m-2"
+            placeholder="IPhone XR"
+            size="large"
+            @change="emitValue"
+          >
+            <el-option
+              v-for="item in options"
+              :key="item.value.join('')"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </div>
+      </div>
+      <el-button class="page-item" size="small" @click="toPreview">预览</el-button>
     </div>
-    <el-button size="small" @click="toPreview">预览</el-button>
-    <el-button size="small" @click="toSchema">schema 生成器</el-button>
+    
 
+    
+    <el-row>
+      <el-button size="small" @click="toSchema">schema 生成器</el-button>
+    </el-row>
+
+    <div  v-if = "loginStatus"  class="userInfo"> 
+
+       <el-avatar :size="50" :src="userInfo.avatar_url" />
+       <span style="margin-left: 10px; font-size: 15px">{{userInfo.login}}</span>
+    </div>
+    <div v-else class ="login" @click="login">
+      <i class="el-icon-user-solid"></i>
+      <span class="login-item">GitHub授权</span>
+    </div>
     <!-- 预览 -->
     <Preview v-if="isShowPreview" @change="handlePreviewChange" />
   </div>
@@ -47,6 +61,7 @@
 <script>
 import eventBus from "@/utils/eventBus";
 import { mapState } from "vuex";
+import {Login} from '../api/api';
 export default {
   name: "pageHeader",
   data() {
@@ -78,7 +93,12 @@ export default {
         },
       ],
       isShowPreview: false,
+      loginStatus: false,
+      userInfo: {},
     };
+  },
+  created(){
+    this.GetLoginStatus()
   },
   computed: mapState(["pages"]),
   watch: {
@@ -96,6 +116,26 @@ export default {
     })
   },
   methods: {
+    async GetLoginStatus() {
+      // let url = window.location.href;
+      // let index = url.indexOf(this.$route.params)
+      // let params = url.slice(index);
+      let access_token = this.$cookies.get("access_token");
+      //拿到token 去申请username 和 avatar
+      console.log("tiken", access_token)
+      if(access_token) {
+        let userInfo = await Login.getUserInfo(access_token); 
+        console.log("userInfo", userInfo.data)
+  
+        //存储到vuex中
+        this.$store.commit('setUserInfo',userInfo.data);
+        //更新视图
+        this.userInfo = userInfo.data;
+
+        //更新状态
+        this.loginStatus = true;
+      }
+    },
     toSchema() {
       let { href } = this.$router.resolve({
         path: "/schema",
@@ -182,6 +222,13 @@ export default {
     changeOptions() {
       eventBus.$emit("updateWidgets", this.curPage);
     },
+    async login() {
+      const data = await Login.login();   
+      // console.log(data)
+      let x = this.$cookies.get("access_token")
+      console.log("document cookieasda", x)
+
+    }
   },
 };
 </script>
@@ -196,5 +243,26 @@ export default {
   padding: 0 20px;
   background: #fff;
   box-shadow: 0 4px 6px 0 rgba(12, 31, 80, 0.04);
+}
+.page-control{
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  .page-option{
+    width:100px;
+  }
+  .page-item{
+    margin-left: 1em;
+  }
+}
+.login-item{
+  position: relative;
+  display: inline-block;
+  margin: 0 0 0 0.3rem;
+}
+.userInfo{
+  display:flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

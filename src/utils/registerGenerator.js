@@ -42,7 +42,6 @@ function registerSchemaInitializing() {
         list.push({ component: componentName, ...files(key).default })
 
     });
-
     Vue.prototype.$cmpConfig = list
 }
 

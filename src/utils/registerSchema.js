@@ -24,6 +24,7 @@ function registerComponentsSchema () {
     fields[name] = config.fields
     initializing.push(initDefaulValue(config))
   })
+  console.log("initializing", initializing)
   Vue.prototype.$fields = fields
   Vue.prototype.$initializing = initializing
 }
