@@ -44,8 +44,7 @@
       <el-button size="small" @click="toSchema">schema 生成器</el-button>
     </el-row>
 
-    <div  v-if = "loginStatus"  class="userInfo"> 
-
+    <div v-if = "loginStatus"  class="userInfo" @click="drawer = true"> 
        <el-avatar :size="50" :src="userInfo.avatar_url" />
        <span style="margin-left: 10px; font-size: 15px">{{userInfo.login}}</span>
     </div>
@@ -55,6 +54,15 @@
     </div>
     <!-- 预览 -->
     <Preview v-if="isShowPreview" @change="handlePreviewChange" />
+   
+    <!-- drawer -->
+    <el-drawer
+      title="我是标题"
+      :visible.sync="drawer"
+      :with-header="false">
+      <el-button @click="logout">退出登录</el-button>
+    </el-drawer>
+
   </div>
 </template>
 
@@ -95,6 +103,7 @@ export default {
       isShowPreview: false,
       loginStatus: false,
       userInfo: {},
+      drawer: false
     };
   },
   created(){
@@ -116,26 +125,6 @@ export default {
     })
   },
   methods: {
-    async GetLoginStatus() {
-      // let url = window.location.href;
-      // let index = url.indexOf(this.$route.params)
-      // let params = url.slice(index);
-      let access_token = this.$cookies.get("access_token");
-      //拿到token 去申请username 和 avatar
-      console.log("tiken", access_token)
-      if(access_token) {
-        let userInfo = await Login.getUserInfo(access_token); 
-        console.log("userInfo", userInfo.data)
-  
-        //存储到vuex中
-        this.$store.commit('setUserInfo',userInfo.data);
-        //更新视图
-        this.userInfo = userInfo.data;
-
-        //更新状态
-        this.loginStatus = true;
-      }
-    },
     toSchema() {
       let { href } = this.$router.resolve({
         path: "/schema",
@@ -222,12 +211,36 @@ export default {
     changeOptions() {
       eventBus.$emit("updateWidgets", this.curPage);
     },
+    async GetLoginStatus() {
+      let access_token = this.$cookies.get("access_token");
+      //拿到token 去申请username 和 avatar
+      // console.log("tiken", access_token)
+      if(access_token) {
+        let userInfo = await Login.getUserInfo(access_token); 
+        // console.log("userInfo", userInfo.data)
+  
+        //存储到vuex中
+        this.$store.commit('setUserInfo',userInfo.data);
+        //更新视图
+        this.userInfo = userInfo.data;
+
+        //更新状态
+        this.loginStatus = true;
+      }
+    },
     async login() {
       const data = await Login.login();   
       // console.log(data)
-      let x = this.$cookies.get("access_token")
-      console.log("document cookieasda", x)
-
+      // let access_token = this.$cookies.get("access_token")
+      // console.log("document cookie", access_token)
+    },
+    logout() {
+      this.userInfo = {};
+      this.loginStatus = false;
+      this.drawer = false;
+      this.$store.commit("setUserInfo", {});
+      //清除token
+      this.$cookies.remove("access_token");
     }
   },
 };
