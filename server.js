@@ -4,6 +4,8 @@ const app = express()
 const bodyParser = require('body-parser')
 const router = require('./routes/index.js')
 
+var authRouter = require('./routes/auth');
+
 
 // view引擎设置
 app.set('view engine','ejs'); 
@@ -27,7 +29,7 @@ app.use((req, res, next) => {
 
 // 设置路由
 app.use('/',router);
-
+app.use('/oauth', authRouter);
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT)
